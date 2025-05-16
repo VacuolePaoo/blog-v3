@@ -10,9 +10,9 @@ export default defineAppConfig({
 
     article: {
         categories: <{ [category: string]: { icon: string, color?: string } }>{
-            经验分享: { icon: 'ph:mouse-bold', color: '#3af' },
-            生活: { icon: 'ph:shooting-star-bold', color: '#3ba' },
-            代码: { icon: 'ph:code-bold', color: '#77f' },
+            技术经验: { icon: 'ph:code-bold', color: '#3af' },
+            生活: { icon: 'ph:lego-smiley-bold', color: '#3ba' },
+            资源分享: { icon: 'ph:package-bold', color: '#77f' },
             未分类: { icon: 'ph:folder-dotted-bold' },
         },
         defaultCategoryIcon: 'ph:folder-bold',
@@ -70,7 +70,7 @@ export default defineAppConfig({
                 items: [
                     { icon: 'simple-icons:nuxtdotjs', text: 'Nuxt开源博客主题', url: 'https://github.com/L33Z22L11/blog-v3' },
                     { icon: 'ph:swatches-bold', text: '主题和组件文档', url: '/theme' },
-                    { icon: 'ph:certificate-bold', text: '萌备20246888号', url: 'https://icp.gov.moe/?keyword=20246888' },
+                    { icon: 'ph:certificate-bold', text: '萌备202号', url: 'https://icp.gov.moe/?keyword=20246888' },
                 ],
             },
         ] satisfies Nav,
@@ -80,7 +80,7 @@ export default defineAppConfig({
 
     /** 左侧栏顶部 Logo */
     header: {
-        logo: 'https://weavatar.com/avatar/47c0f2e82b76d9b10eb3023df9e02e4e3fdbeaf5b74b842063f207971e7fbe7b?s=160',
+        logo: 'https://www.helloimg.com/i/2025/04/20/6804a76eb83f5.png',
         /** 展示标题文本，否则展示纯 Logo */
         showTitle: true,
         subtitle: blogConfig.subtitle,
@@ -115,23 +115,23 @@ export default defineAppConfig({
 
     stats: {
         /** 归档页面每年标题对应的年龄 */
-        birthYear: 2003,
+        birthYear: 2009,
         /** blog-stats widget 的预置文本 */
-        wordCount: '约10万',
+        wordCount: '114514',
     },
 
     themes: {
         light: {
             icon: 'ph:sun-bold',
-            tip: '浅色模式',
+            tip: '白昼',
         },
         system: {
             icon: 'ph:monitor-bold',
-            tip: '跟随系统',
+            tip: '系统',
         },
         dark: {
             icon: 'ph:moon-bold',
-            tip: '深色模式',
+            tip: '极夜',
         },
     },
 })
