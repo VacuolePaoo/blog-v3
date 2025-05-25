@@ -10,10 +10,14 @@ export default defineAppConfig({
 
     article: {
         categories: <{ [category: string]: { icon: string, color?: string } }>{
-            经验分享: { icon: 'ph:mouse-bold', color: '#3af' },
-            生活: { icon: 'ph:shooting-star-bold', color: '#3ba' },
-            代码: { icon: 'ph:code-bold', color: '#77f' },
-            未分类: { icon: 'ph:folder-dotted-bold' },
+            经验分享: { icon: 'ph:smiley-melting-bold', color: '#FF6B6B' },     // 珊瑚红
+            生活: { icon: 'ph:lego-smiley-bold', color: '#4ECDC4' },            // 薄荷绿
+            闲聊杂谈: { icon: 'ph:bird-bold', color: '#45B7D1' },               // 天蓝色
+            软件推荐: { icon: 'ph:app-store-logo-bold', color: '#96CEB4' },     // 青草绿
+            资源分享: { icon: 'ph:package-bold', color: '#FF8C42' },            // 橙色
+            开发笔记: { icon: 'ph:code-bold', color: '#6C5B7B' },               // 紫罗兰
+            学习笔记: { icon: 'ph:graduation-cap-bold', color: '#4A90E2' },      // 宝石蓝
+            未分类: { icon: 'ph:folder-dotted-bold' }
         },
         defaultCategoryIcon: 'ph:folder-bold',
         /** 分类排序方式，键为排序字段，值为显示名称 */
@@ -42,10 +46,10 @@ export default defineAppConfig({
         /** 侧边栏底部图标导航 */
         iconNav: [
             { icon: 'ph:house-bold', text: '个人主页', url: blogConfig.author.homepage },
-            { icon: 'ri:qq-line', text: '交流群: 169994096', url: 'https://jq.qq.com/?_wv=1027&k=lQfNSeEd' },
-            { icon: 'ph:github-logo-bold', text: 'GitHub: L33Z22L11', url: 'https://github.com/L33Z22L11' },
-            { icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
-            { icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/go-by-clouds.html' },
+            { icon: 'ph:discord-logo-bold', text: 'Discord群组 人数600+', url: 'https://discord.gg/vMTSEScRSQ' },
+            { icon: 'ph:github-logo-bold', text: 'GitHub: VacuolePaoo', url: 'https://github.com/VacuolePaoo' },
+            { icon: 'ph:rss-simple-bold', text: 'Atom订阅源', url: '/atom.xml' },
+            { icon: 'ph:subway-bold', text: '通过 开往 发现更多博客', url: 'https://www.travellings.cn/go-by-clouds.html' },
         ] satisfies NavItem[],
         /** 页脚站点地图 */
         nav: [
@@ -53,38 +57,38 @@ export default defineAppConfig({
                 title: '探索',
                 items: [
                     { icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
-                    { icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/go-by-clouds.html' },
-                    { icon: 'ph:flying-saucer-bold', text: '异次元旅行', url: 'https://travel.moe/go.html?travel=on' },
+                    { icon: 'ph:subway-bold', text: '通过 开往 发现更多博客', url: 'https://www.travellings.cn/go-by-clouds.html' },
+                    { icon: 'ph:flying-saucer-bold', text: '通过 跃迁 发现更多博客', url: 'https://travel.moe/go.html?travel=on' },
                 ],
             },
             {
                 title: '社交',
                 items: [
-                    { icon: 'ph:github-logo-bold', text: 'L33Z22L11', url: 'https://github.com/L33Z22L11' },
-                    { icon: 'ri:qq-line', text: '群: 169994096', url: 'https://jq.qq.com/?_wv=1027&k=lQfNSeEd' },
+                    { icon: 'ph:github-logo-bold', text: 'VacuolePaoo', url: 'https://github.com/VacuolePaoo' },
+                    { icon: 'ph:discord-logo-bold', text: 'Discord', url: 'https://discord.gg/vMTSEScRSQ' },
                     { icon: 'ph:envelope-simple-bold', text: blogConfig.author.email, url: `mailto:${blogConfig.author.email}` },
                 ],
             },
             {
                 title: '信息',
                 items: [
-                    { icon: 'simple-icons:nuxtdotjs', text: 'Nuxt开源博客主题', url: 'https://github.com/L33Z22L11/blog-v3' },
-                    { icon: 'ph:swatches-bold', text: '主题和组件文档', url: '/theme' },
-                    { icon: 'ph:certificate-bold', text: '萌备20246888号', url: 'https://icp.gov.moe/?keyword=20246888' },
+                    { icon: 'simple-icons:nuxtdotjs', text: '此博客已开源', url: 'https://github.com/L33Z22L11/blog-v3' },
+                    // { icon: 'ph:swatches-bold', text: '主题和组件文档', url: '/theme' },
+                    // { icon: 'ph:certificate-bold', text: '萌备20246888号', url: 'https://icp.gov.moe/?keyword=20246888' },
                 ],
             },
         ] satisfies Nav,
         /** 页脚版权信息底部的其他信息 */
-        message: '',
+        message: '<b>Written by Human - Not by AI<br>真人撰写 非AI生成</br>',
     },
 
     /** 左侧栏顶部 Logo */
     header: {
-        logo: 'https://weavatar.com/avatar/47c0f2e82b76d9b10eb3023df9e02e4e3fdbeaf5b74b842063f207971e7fbe7b?s=160',
+        logo: 'https://s2.loli.net/2025/05/25/NGQTfcIXyBOeHVu.jpg',
         /** 展示标题文本，否则展示纯 Logo */
         showTitle: true,
         subtitle: blogConfig.subtitle,
-        emojiTail: ['📄', '🦌', '🙌', '🐟', '🏖️'],
+        emojiTail: ['🧫', '🫧', '🫤', '⌨️', '📃'],
     },
 
     pagination: {
@@ -92,7 +96,7 @@ export default defineAppConfig({
         /** 默认排序方式，需要是 this.article.order 中的键名 */
         sortOrder: 'date' as const,
         /** 允许（普通/预览/归档）文章列表正序，开启后排序方式左侧图标可切换顺序 */
-        allowAscending: false,
+        allowAscending: true,
     },
 
     /** 左侧栏导航 */
@@ -109,29 +113,29 @@ export default defineAppConfig({
 
     /** 风格化 blog-stats widget */
     seasonal: {
-        // widgetBackground: 'https://wsrv.nl/?url=i2.hdslb.com/bfs/archive/46165212e09842103752c453d7987a470059760b.jpg@320w',
+        // widgetBackground: 'https://s2.loli.net/2025/05/25/p75OMhTNvRgAGVm.webp',
         // emoji: '🧧',
     },
 
     stats: {
         /** 归档页面每年标题对应的年龄 */
-        birthYear: 2003,
+        birthYear: 2009,
         /** blog-stats widget 的预置文本 */
-        wordCount: '约10万',
+        wordCount: '114514',
     },
 
     themes: {
         light: {
             icon: 'ph:sun-bold',
-            tip: '浅色模式',
+            tip: '白昼',
         },
         system: {
             icon: 'ph:monitor-bold',
-            tip: '跟随系统',
+            tip: '凹透',
         },
         dark: {
             icon: 'ph:moon-bold',
-            tip: '深色模式',
+            tip: '极夜',
         },
     },
 })
