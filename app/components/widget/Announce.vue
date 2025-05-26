@@ -46,4 +46,30 @@ const welcomeMessage = computed(() => {
     // 文明用语😋
     content: var(--seasonal-emoji, "\1F595");
 }
+
+.welcome-message {
+    background: linear-gradient(
+        90deg,
+        #946E29,
+        #f3aa4b,
+        #946E29
+    );
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradient 3s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 </style>

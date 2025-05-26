@@ -16,7 +16,7 @@ export const useIpLocation = () => {
             const data: IpResponse = await response.json()
             
             if (data.ret === 'ok' && data.data.length >= 3) {
-                location.value = data.data.slice(0, 3)
+                location.value = data.data.slice(1, 3)
             }
         } catch (e) {
             error.value = e as Error
