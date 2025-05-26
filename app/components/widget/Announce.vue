@@ -1,5 +1,12 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+const { location, loading, error } = useIpLocation()
+
+const welcomeMessage = computed(() => {
+    if (loading.value) return '正在获取您的位置...'
+    if (error.value) return '欢迎您的访问！'
+    return `欢迎来自${location.value.filter(Boolean).join('')}的小伙伴！`
+})
 </script>
 
 <template>
@@ -13,9 +20,8 @@ const appConfig = useAppConfig()
             '--seasonal-emoji': appConfig.seasonal.emoji,
         }"
     >
-        <!-- TODO: 优化技术架构展示 -->
-        <p></p>
-            <!-- 移动:<span class="seasonal-emoji">多省阻断解析</span> -->
+    <p></p>
+        <p class="welcome-message">{{ welcomeMessage }}</p>
     </div>
 </template>
 
