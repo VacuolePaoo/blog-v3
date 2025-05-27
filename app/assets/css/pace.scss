@@ -1,0 +1,30 @@
+.pace {
+    pointer-events: none;
+    user-select: none;
+    
+    .pace-progress {
+        background: var(--c-primary);
+        height: 2px;
+        position: fixed;
+        right: 100%;
+        top: 0;
+        width: 100%;
+        z-index: 2000;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            box-shadow: 0 0 10px var(--c-primary), 0 0 5px var(--c-primary);
+            transform: rotate(3deg) translate(0px, -4px);
+            opacity: 0.3;
+        }
+    }
+}
+
+.pace-inactive {
+    display: none;
+}

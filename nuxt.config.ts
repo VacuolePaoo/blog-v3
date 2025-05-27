@@ -29,6 +29,7 @@ export default defineNuxtConfig({
                 { rel: 'preconnect', href: 'https://fonts.gstatic.cn', crossorigin: '' },
                 { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap', media: 'none', onload: 'this.media="all"' },
                 { rel: 'stylesheet', href: 'https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkaibright/dist/LXGWBright-Medium/result.css' },
+                { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-minimal.min.css' },
                 // Fira Code 没有斜体
                 // { rel: 'stylesheet', href: 'https://fonts.googleapis.cn/css2?family=Fira+Code:wght@300..700&family=Noto+Serif+SC:wght@200..900&display=swap', media: 'none', onload: 'this.media="all"' },
 
@@ -38,7 +39,13 @@ export default defineNuxtConfig({
                 separator: '|',
             },
             titleTemplate: `%s %separator ${blogConfig.title}`,
-            script: blogConfig.scripts,
+            script: [
+                ...blogConfig.scripts,
+                {
+                    src: 'https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js',
+                    defer: true
+                }
+            ],
         },
         rootId: 'z-root',
     },
@@ -57,6 +64,7 @@ export default defineNuxtConfig({
         '@/assets/css/color.scss',
         '@/assets/css/main.scss',
         '@/assets/css/reusable.scss',
+        '@/assets/css/pace.scss',
     ],
 
     // https://github.com/nuxt/devtools/issues/761
