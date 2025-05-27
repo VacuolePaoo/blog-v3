@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+const { hitokoto } = useHitokoto()
 </script>
 
 <template>
@@ -21,6 +22,7 @@ const appConfig = useAppConfig()
         </nav>
         <p v-html="appConfig.footer.copyright" />
         <p v-html="appConfig.footer.message" />
+        <p v-if="hitokoto" class="hitokoto">{{ hitokoto }}</p>
     </footer>
 </template>
 
@@ -60,6 +62,22 @@ const appConfig = useAppConfig()
 
     p {
         margin: 0.5em;
+    }
+
+    .hitokoto {
+        text-align: center;
+        font-style: italic;
+        opacity: 0.8;
+        animation: hitokoto-fade-in 1s ease;
+    }
+
+    @keyframes hitokoto-fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 0.8;
+        }
     }
 }
 </style>
