@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
-const { hitokoto } = useHitokoto()
+const { hitokoto, isHovered, fetchHitokoto } = useHitokoto()
 </script>
 
 <template>
@@ -22,7 +22,11 @@ const { hitokoto } = useHitokoto()
         </nav>
         <p v-html="appConfig.footer.copyright" />
         <p v-html="appConfig.footer.message" />
-        <p v-if="hitokoto" class="hitokoto">{{ hitokoto }}</p>
+        <p v-if="hitokoto" class="hitokoto" :class="{ 'is-hover': isHovered }" @mouseenter="isHovered = true"
+            @mouseleave="isHovered = false" @click="fetchHitokoto()">
+            <span class="hitokoto-text">{{ hitokoto }}</span>
+            <span class="hitokoto-hover">点击刷新</span>
+        </p>
     </footer>
 </template>
 
@@ -69,12 +73,42 @@ const { hitokoto } = useHitokoto()
         font-style: italic;
         opacity: 0.8;
         animation: hitokoto-fade-in 1s ease;
+        cursor: pointer;
+        position: relative;
+        transition: opacity 0.3s;
+
+        &:hover {
+            opacity: 1;
+        }
+
+        .hitokoto-text,
+        .hitokoto-hover {
+            transition: opacity 0.3s;
+        }
+
+        .hitokoto-hover {
+            position: absolute;
+            left: 0;
+            right: 0;
+            opacity: 0;
+        }
+
+        &.is-hover {
+            .hitokoto-text {
+                opacity: 0;
+            }
+
+            .hitokoto-hover {
+                opacity: 1;
+            }
+        }
     }
 
     @keyframes hitokoto-fade-in {
         from {
             opacity: 0;
         }
+
         to {
             opacity: 0.8;
         }

@@ -2,6 +2,7 @@ import { ref } from 'vue'
 
 export const useHitokoto = () => {
     const hitokoto = ref('')
+    const isHovered = ref(false)
 
     const fetchHitokoto = async () => {
         try {
@@ -19,6 +20,8 @@ export const useHitokoto = () => {
     })
 
     return {
-        hitokoto
+        hitokoto,
+        isHovered,
+        fetchHitokoto
     }
 }
