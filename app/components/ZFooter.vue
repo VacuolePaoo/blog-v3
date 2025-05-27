@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
-const { hitokoto, isHovered, fetchHitokoto } = useHitokoto()
+const { hitokoto, isHovered, isRefreshing, fetchHitokoto } = useHitokoto()
 </script>
 
 <template>
@@ -22,11 +22,16 @@ const { hitokoto, isHovered, fetchHitokoto } = useHitokoto()
         </nav>
         <p v-html="appConfig.footer.copyright" />
         <p v-html="appConfig.footer.message" />
-        <p v-if="hitokoto" class="hitokoto" :class="{ 'is-hover': isHovered }" @mouseenter="isHovered = true"
-            @mouseleave="isHovered = false" @click="fetchHitokoto()">
-            <span class="hitokoto-text">{{ hitokoto }}</span>
+        <div v-if="hitokoto" class="hitokoto" :class="{ 'is-hover': isHovered && !isRefreshing }"
+            @mouseenter="isHovered = true" @mouseleave="isHovered = false" @click="!isRefreshing && fetchHitokoto()">
+            <div class="hitokoto-content">
+                <span class="hitokoto-text" :class="{ hidden: isRefreshing }">{{ hitokoto }}</span>
+                <span class="hitokoto-refresh" :class="{ visible: isRefreshing }">
+                    <Icon name="ph:check-fat-bold" />
+                </span>
+            </div>
             <span class="hitokoto-hover">点击刷新</span>
-        </p>
+        </div>
     </footer>
 </template>
 
@@ -64,54 +69,87 @@ const { hitokoto, isHovered, fetchHitokoto } = useHitokoto()
         }
     }
 
-    p {
+    p, .hitokoto {
         margin: 0.5em;
     }
 
     .hitokoto {
         text-align: center;
-        font-style: italic;
+        font-size: 1rem;
+        font-family: 'LXGW Bright Medium', sans-serif;
+        font-weight: 400;
         opacity: 0.8;
-        animation: hitokoto-fade-in 1s ease;
         cursor: pointer;
         position: relative;
         transition: opacity 0.3s;
+        min-height: 1.5em;
 
         &:hover {
             opacity: 1;
         }
 
+        .hitokoto-content {
+            position: relative;
+            height: 1.5em;
+        }
+
         .hitokoto-text,
-        .hitokoto-hover {
-            transition: opacity 0.3s;
+        .hitokoto-hover,
+        .hitokoto-refresh {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .hitokoto-text {
+            &.hidden {
+                opacity: 0;
+            }
         }
 
         .hitokoto-hover {
-            position: absolute;
-            left: 0;
-            right: 0;
             opacity: 0;
+            transform: translateY(5px);
+        }
+
+        .hitokoto-refresh {
+            color: var(--c-green);
+            font-size: 1.2em;
+            opacity: 0;
+
+            &.visible {
+                opacity: 1;
+            }
         }
 
         &.is-hover {
             .hitokoto-text {
                 opacity: 0;
+                transform: translateY(-5px);
             }
 
             .hitokoto-hover {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
     }
 
-    @keyframes hitokoto-fade-in {
-        from {
-            opacity: 0;
-        }
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: all 0.15s ease;
+        position: relative;
+    }
 
-        to {
-            opacity: 0.8;
-        }
+    .fade-enter-from,
+    .fade-leave-to {
+        opacity: 0;
     }
 }
 </style>
