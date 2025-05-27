@@ -79,7 +79,7 @@ export default defineAppConfig({
             },
         ] satisfies Nav,
         /** 页脚版权信息底部的其他信息 */
-        message: '<b>Written by Human - Not by AI<br>真人撰写 非AI生成</br>',
+        message: '',
     },
 
     /** 左侧栏顶部 Logo */
