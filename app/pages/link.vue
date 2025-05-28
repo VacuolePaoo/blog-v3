@@ -27,25 +27,26 @@ const { data: postLink } = await useAsyncData('/link', () => queryContent('/link
 <template>
     <header class="link-reminder">
         <div class="content">
-            <p><Icon name="ph:newspaper-clipping-bold" /> 我会通过订阅源阅读友链文章。</p>
+            <p><Icon name="ph:read-cv-logo-bold" /> 我会订阅并阅读每位朋友的RSS（如果有的话）</p>
             <p>
-                欢迎加入 QQ 群 <Tip copy>
+                欢迎加入 <ProseA href="https://discord.gg/vMTSEScRSQ">Discord</ProseA> 群组
+                <!-- <Tip copy>
                     {{ appConfig.qqGroup }}
-                </Tip> 闲聊或技术交流。
+                </Tip> 闲聊或技术交流。 -->
             </p>
             <p>
                 我制作了本站的
                 <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -->
                 <ProseA href="/zhilu.opml">友链源 OPML 聚合</ProseA>，可导入阅读器或
                 <!-- eslint-disable-next-line vue/singleline-html-element-content-newline -->
-                <ProseA href="https://app.follow.is/share/lists/72840182614552576">订阅 Folo List</ProseA>。
+                <ProseA href="https://app.follow.is/share/feeds/150214211386874880">订阅 Folo List</ProseA>。
             </p>
         </div>
         <div class="operations">
             <ProseA href="/atom.xml" icon="ph:rss-simple-bold">
-                订阅源
+                RSS 订阅源
             </ProseA>
-            <ProseA href="https://app.follow.is/share/feeds/62533754566736896" icon="ph:list-plus-bold">
+            <ProseA href="https://app.follow.is/share/feeds/150214211386874880" icon="ph:list-plus-bold">
                 在 Folo 上订阅
             </ProseA>
         </div>
@@ -54,7 +55,7 @@ const { data: postLink } = await useAsyncData('/link', () => queryContent('/link
     <FeedGroup label="友链" :feeds="friends" />
     <FeedGroup label="订阅" :feeds="subscriptions" />
 
-    <Tab :tabs="['我的博客信息', '申请友链']" center>
+    <Tab :tabs="['我的博客信息', '互换友链']" center>
         <template #tab1>
             <div class="link-tab">
                 <FeedCard v-bind="myFeed" />
