@@ -9,21 +9,34 @@
 申请方式：在评论区留言或发送邮件到 :tip{text="me@vacuole.top" copy}
   - 邮件主题注明 :tip{text="【友链申请】+ 博客名称" copy}
   - 以**下方格式**附上友链信息
-    ```ts
-    {
-      author: "博主大名",
-      sitenick: "站点标签",
-      title: "博客名称",
-      desc: "博客介绍",
-      link: "博客地址",
-      feed: "订阅源地址",
-      icon: "站点favicon",
-      avatar: "博主头像",
-      archs: ["框架", "部署方式"],
-      date: "申请日期",
-      comment: "评论",
-    },
-    ```
-![](https://s2.loli.net/2025/05/29/7ejhNSucyP3UYm6.png)
 
-👆 字段作用参考，标⭐的为必填项
+<!-- ```ts
+{
+  author: "博主大名",
+  sitenick: "站点标签",
+  title: "博客名称",
+  desc: "博客介绍",
+  link: "博客地址",
+  feed: "订阅源地址",
+  icon: "站点favicon",
+  avatar: "博主头像",
+  archs: ["框架", "部署方式"],
+  date: "申请日期",
+  comment: "评论",
+},
+``` -->
+
+```ts
+{
+  author: "博主大名",
+  avatar: "博主头像",
+  title: "博客名称",
+  desc: "博客介绍",
+  link: "博客地址",
+  feed: "订阅源地址",
+},
+```
+
+<!-- ![](https://s2.loli.net/2025/05/29/7ejhNSucyP3UYm6.png) -->
+
+<!-- 👆 字段作用参考，标⭐的为必填项 -->
