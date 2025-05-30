@@ -6,6 +6,19 @@ export default [
         name: "相谈甚多",
         desc: "",
         entries: [
+            {
+                author: "Nahida",
+                sitenick: "Buer",
+                title: "纳西妲Nahida",
+                desc: "为世界上一切美好而战！",
+                link: "https://nahida.im",
+                feed: "https://nahida.im/rss.xml",
+                icon: "https://nahida.im/favicon.ico",
+                avatar: "https://nahida.im/profile.png",
+                archs: ["Astro", "Cloudflare"],
+                date: "2025-05-30",
+                comment: "社群中的活跃成员，开源爱好者，曾经给DC社群弄炸过一次"
+            },
             // {
             //     author: "GuuGuai",
             //     sitenick: "杂记本",
