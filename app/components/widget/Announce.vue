@@ -3,9 +3,13 @@ const appConfig = useAppConfig()
 const { location, loading, error } = useIpLocation()
 
 const welcomeMessage = computed(() => {
-    if (loading.value) return '正在获取您的位置...'
-    if (error.value) return '欢迎您的访问！'
-    return `欢迎来自${location.value.filter(Boolean).join('')}的小伙伴！`
+    if (loading.value) return { prefix: '', location: '正在获取您的位置', suffix: '...' }
+    if (error.value) return { prefix: '', location: '', suffix: '欢迎您的访问！' }
+    return {
+        prefix: '欢迎来自',
+        location: location.value.filter(Boolean).join(''),
+        suffix: '的小伙伴！'
+    }
 })
 </script>
 
@@ -13,15 +17,16 @@ const welcomeMessage = computed(() => {
     <h3 class="widget-title">
         公告
     </h3>
-    <div
-        class="widget-card seasonal"
-        :style="{
-            '--seasonal-bg': `url(${appConfig.seasonal.widgetBackground})`,
-            '--seasonal-emoji': appConfig.seasonal.emoji,
-        }"
-    >
-    <p></p>
-        <p class="welcome-message">{{ welcomeMessage }}</p>
+    <div class="widget-card seasonal" :style="{
+        '--seasonal-bg': `url(${appConfig.seasonal.widgetBackground})`,
+        '--seasonal-emoji': appConfig.seasonal.emoji,
+    }">
+        <p class="welcome-message">
+            {{ welcomeMessage.prefix }}<span class="location">{{ welcomeMessage.location }}</span>{{ welcomeMessage.suffix }}
+        </p>
+        <p>液泡部落格在全球能够正常访问 <br><del>除了某些地区的电信</del></p>
+        <hr>
+        <p><b>当前版本 </b><code>250531-release</code><br><li>添加一言组件，点击即可刷新</li><li>获取访客地理位置并欢迎</li></p>
     </div>
 </template>
 
@@ -42,26 +47,32 @@ const welcomeMessage = computed(() => {
     }
 }
 
-.seasonal-emoji::before, .seasonal-emoji::after {
-    // 文明用语😋
+.seasonal-emoji::before,
+.seasonal-emoji::after {
     content: var(--seasonal-emoji, "\1F595");
 }
 
 .welcome-message {
-    background: linear-gradient(
-        90deg,
-        #946E29,
-        #f3aa4b,
-        #946E29
+    background-image: linear-gradient(
+        -45deg,
+        #0c3483 0%,
+        #a2b6df 25%,
+        #6b8cce 50%,
+        #a2b6df 75%,
+        #0c3483 100%
     );
-    background-size: 200% auto;
+    background-size: 400% 400%;
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    animation: gradient 3s linear infinite;
+    animation: flow 8s ease infinite;
+
+    .location {
+        font-weight: bold;
+    }
 }
 
-@keyframes gradient {
+@keyframes flow {
     0% {
         background-position: 0% 50%;
     }
