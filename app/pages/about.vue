@@ -118,6 +118,9 @@ const avatarUrl = config.header?.logo || ''
                         v-if="avatarUrl"
                     >
                 </div>
+                <div class="site-title">
+                    液泡部落格
+                </div>
                 <div class="social-links-wrapper">
                     <a
                         v-for="social in socials"
