@@ -1,4 +1,12 @@
 <script setup lang="ts">
+// 社交媒体链接类型定义
+interface SocialLink {
+    text: string      // 展开显示的详细文本
+    alt: string       // 悬浮提示的简短文本
+    url: string       // 链接地址
+    icon: string      // 图标名称
+}
+
 const config = useAppConfig()
 
 // 确保配置正确加载
@@ -37,18 +45,38 @@ const specialties = [
     }
 ]
 
-// 获取原有社交链接
-const socialSection = config.footer?.nav?.find(section => section.title === '社交')
-const originalSocials = socialSection?.items || []
-
-// 添加B站链接
-const socials = [
-    ...originalSocials,
+/**
+ * 社交媒体链接配置
+ * text: 展开显示的详细文本
+ * alt: 悬浮提示的简短文本
+ * url: 链接地址
+ * icon: 图标 (使用Remix Icon: https://remixicon.com/)
+ */
+const socials: SocialLink[] = [
     {
-        text: 'B站',
+        text: '看看我的项目',
+        alt: 'GitHub: VacuolePaoo',
+        url: 'https://github.com/VacuolePaoo',
+        icon: 'line-md:github'
+    },
+    {
+        text: '加入我的Discord群组',
+        alt: 'Discord',
+        url: 'https://discord.gg/vMTSEScRSQ',
+        icon: 'line-md:discord'
+    },
+    {
+        text: '给我发邮件',
+        alt: 'me@vacuole.top',
+        url: 'mailto:me@example.com',
+        icon: 'line-md:email'
+    },
+    {
+        text: '看看我的视频',
+        alt: 'Bilibili: VacuolePao',
         url: 'https://space.bilibili.com/518590350',
-        icon: 'ri:bilibili-fill',
-    }
+        icon: 'ant-design:bilibili-outlined'
+    },
 ]
 
 // 获取头像URL
@@ -65,19 +93,19 @@ const avatarUrl = config.header?.logo || ''
                     <div class="title-wrapper">
                         <div class="title-track track-1">
                             <span>VACUOLE</span>
+                            <span>液泡</span>
                             <span>VACUOLE</span>
+                            <span>液泡</span>
                             <span>VACUOLE</span>
-                            <span>VACUOLE</span>
-                            <span>VACUOLE</span>
-                            <span>VACUOLE</span>
+                            <span>液泡</span>
                         </div>
                         <div class="title-track track-2">
                             <span>VACUOLE</span>
+                            <span>液泡</span>
                             <span>VACUOLE</span>
+                            <span>液泡</span>
                             <span>VACUOLE</span>
-                            <span>VACUOLE</span>
-                            <span>VACUOLE</span>
-                            <span>VACUOLE</span>
+                            <span>液泡</span>
                         </div>
                     </div>
                 </div>
@@ -98,7 +126,7 @@ const avatarUrl = config.header?.logo || ''
                         target="_blank"
                         rel="noopener noreferrer"
                         class="social-link"
-                        :title="social.text"
+                        :title="social.alt"
                     >
                         <div class="social-content">
                             <span class="social-text">{{ social.text }}</span>
