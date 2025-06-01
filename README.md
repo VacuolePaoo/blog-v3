@@ -1,144 +1,141 @@
-# 纸鹿摸鱼处
+# 液泡部落格 (Vacuole Blog)
 
-![框架](https://img.shields.io/badge/框架-Nuxt-00DC82?logo=Nuxt.js)
-![CMS](https://img.shields.io/badge/CMS-Nuxt%20Content-00DC82?logo=Nuxt.js)
-![部署平台](https://img.shields.io/badge/部署平台-Vercel-000000?logo=Vercel)
-![访问统计](https://img.shields.io/badge/访问统计-Umami-000000?logo=Umami)
-![代码风格](https://img.shields.io/badge/代码风格-ESLint-4B32C3?logo=ESLint)
-![代码风格](https://img.shields.io/badge/代码风格-Stylelint-263238?logo=Stylelint)
+> [!NOTE]
+> 本博客基于 https://github.com/L33Z22L11/blog-v3/ 开发
 
-我的第三代个人博客，于 2024 年 8 月 11 日上线。
 
-## 使用本主题的博客
-
-- [纸鹿摸鱼处 @L33Z22L11](https://blog.zhilu.cyou/) · [开发经历](https://blog.zhilu.cyou/2024/blog-using-nuxt)
-- [希乐博客 @Xlenco](https://blog.xlenco.top/)
-- [SteinsNote @Labmem-00](https://blog.labmem.chat/) · [迁移经历](https://blog.labmem.chat/2024/beforeeverything)
-- [月空人 @Whbbit1999](https://whbbit.cn/) · [迁移评价](https://whbbit.cn/2025/why-migrate-to-nuxt)
-- [地球驿站 @mugzx](https://blog.mugzx.top/) · [迁移记录](https://blog.mugzx.top/)
-- [喵落阁 @Kemeow815](https://blog-v3.kemeow.top/)
-- [梦爱吃鱼 @JLinmr](https://blog.ruom.top/)
-- [Mikuの极光星 @PaloMiku](https://blog.sotkg.com/)
-- [BiuXin-s Blog](https://zhilu.biuxin.com/)
+一个基于 Nuxt.js 构建的现代化个人博客系统，具有优雅的设计和丰富的功能特性。
 
 ## 特性
 
-[主题特性](https://blog.zhilu.cyou/theme) · [组件示例](https://blog.zhilu.cyou/previews/example)
+- 🚀 基于 Nuxt.js 3 构建，享受现代化的开发体验
+- 📱 响应式设计，完美适配各种设备
+- 🎨 优雅的 UI 设计，支持亮色/暗色主题切换
+- 📝 完整的 Markdown 支持，轻松创作内容
+- 🔍 内置搜索功能
+- 💬 集成 Twikoo 评论系统
+- 📊 详细的访问统计和文章统计
+- 🗂️ 高级文章归档功能
+  - 按年份自动分组
+  - 显示年度文章统计
+  - 支持按更新时间/发布时间排序
+  - 支持文章分类筛选
+- 🎯 SEO 优化
+  - 自动生成 meta 标签
+  - 支持 Open Graph 协议
+  - 自定义页面描述
+- 📰 RSS 订阅支持
+- 🔗 友情链接管理
+- 🎈 优雅的动画效果
+- 📑 文章目录导航
+- 🎯 自定义侧边栏组件
+
+## 技术栈
+
+- **框架**: Nuxt.js 3
+- **状态管理**: Pinia
+- **样式处理**: SCSS
+- **内容管理**: Nuxt Content
+- **UI 组件**:
+  - Vue Tippy 用于工具提示
+  - Shiki 用于代码高亮
+- **评论系统**: Twikoo
+- **部署**: 支持 Netlify/Vercel 等平台
 
 ## 目录结构
 
-项目使用 Nuxt 4 项目目录结构，可以参照 [Nuxt 3 目录结构（左侧栏有导航）](https://nuxt.com/docs/guide/directory-structure/app)。
-
-```sh
-.
-├── app # 前端
-│   ├── assets # 资源文件
-│   ├── components # 组件
-│   │   ├── content # MDC组件
-│   │   ├── partial # 微型组件
-│   │   ├── widget # 侧边栏组件
-│   │   ├── zhilu # 个人标识组件
-│   │   └── ... # 布局组件
-│   ├── composables # Vue 组合式函数
-│   ├── pages # 页面
-│   │   ├── [...slug].vue # 正文、404页面
-│   │   ├── page.vue # 首页
-│   │   ├── page/[[id]].vue # 首页动态路由
-│   │   ├── archive.vue # 归档
-│   │   ├── link.vue # 友链
-│   │   └── preview.vue # 预览的文章
-│   ├── plugins # Nuxt / Vue 插件
-│   ├── stores # Pinia 状态管理
-│   ├── types # 类型定义
-│   ├── utils # 工具函数
-│   ├── app.config.ts # 前端响应式配置★
-│   ├── app.vue # 基本布局
-│   ├── error.vue # 意外错误页
-│   ├── friends.ts # 友链★
-│   └── subscriptions.ts # 单向订阅/推荐网站★
-├── content # 文章
-│   ├── posts # 文章
-│   ├── previews # 预览文章，可被站内搜索
-│   ├── link.md # 友链要求
-│   └── theme.md # 主题介绍
-├── patches # npm 包补丁
-├── public # 静态资源，生成在站点根目录
-│   └── fonts # 字体
-├── server # 服务端
-│   ├── api # 接口
-│   │   └── stats.get.ts # 博客静态统计
-│   ├── plugins # Nitro 插件
-│   │   ├── anti-mirror.ts # 恶意反代跳转
-│   │   └── fix-post.ts # 修复文章时区/链接
-│   └── routes # 路由
-│       └── atom.xml.get.ts # Atom 订阅源
-├── blog.config.ts # 博客静态公共配置★
-├── nuxt.config.ts # Nuxt 配置
-└── redirects.json # 旧站点重定向配置
+```
+├── app/                # 主应用目录
+│   ├── components/    # Vue 组件
+│   │   ├── content/  # 内容相关组件
+│   │   ├── partial/  # 部分复用组件
+│   │   ├── post/     # 文章相关组件
+│   │   └── widget/   # 小部件组件
+│   ├── composables/   # 组合式函数
+│   ├── pages/        # 页面组件
+│   ├── stores/       # Pinia 状态存储
+│   └── types/        # TypeScript 类型定义
+├── content/          # Markdown 内容
+│   ├── posts/       # 博客文章
+│   └── previews/    # 预览内容
+├── public/          # 静态资源
+└── server/          # 服务端接口
 ```
 
-## 快速开始
+## 主要功能
 
-### 安装依赖
+### 博客功能
+- 文章撰写和管理
+  - Markdown 支持
+  - 文章元数据管理
+  - 阅读时间估算
+- 文章分类和标签系统
+- 高级文章归档
+  - 年份分组
+  - 多维度排序
+  - 分类筛选
+- Twikoo 评论系统集成
+- RSS 订阅支持
 
-```sh
-pnpm i
-```
+### 用户界面
+- 响应式侧边栏导航
+- 动态文章目录
+- 暗色/亮色主题切换
+- 友情链接页面
+- 关于页面
+- 流畅的过渡动画
+- 自适应布局
 
-### 运行开发环境
+### 技术特性
+- 完整的 SEO 优化
+  - 动态 meta 标签
+  - Open Graph 支持
+- 图片优化和懒加载
+- 代码高亮
+- 页面预渲染
+- 自定义重定向支持
+- TypeScript 类型支持
+- 组合式函数（Composables）
+- Pinia 状态管理
 
-```sh
+## 配置说明
+
+主要配置文件：
+- `blog.config.ts`: 博客核心配置
+- `nuxt.config.ts`: Nuxt.js 配置
+- `app.config.ts`: 应用运行时配置
+
+## 开发
+
+```bash
+# 安装依赖
+pnpm install
+
+# 启动开发服务器
 pnpm dev
+
+# 构建生产版本
+pnpm build
 ```
 
-### 初始配置
+## 部署
 
-为避免误会，应当更改一些配置信息以和我的博客网站区分：
+项目支持多种部署方式，推荐使用 Netlify 或 Vercel：
 
-- 删除原有文章：`content/` 目录下仅保留 `link.md`，`app.config.ts` 中将 `footer.nav[2].items[1].url` 由 `/theme` 改为 `https://blog.zhilu.cyou/theme`（确保通过链接检测）。
-- 更换服务配置：`blog.config.ts` 中的 Umami 站点统计、Cloudflare Insights 统计、Twikoo 评论服务源需要注释或更换。
-- 个人信息：`blog.config.ts` 中的站点信息、`app.config.ts` 中的页脚导航、出生年份等。
-- 其他应当被善意认为有必要修改的文件和配置字段（参阅“目录结构”一节）。
-
-### 创建文章
-
-```sh
-pnpm new my-post-title
-```
-
-### 构建生产环境
-
-```sh
-pnpm generate
-pnpm preview
-```
-
-### 部署指南
-
-推荐使用 Vercel 进行部署，同时也支持 Netlify、Cloudflare Pages 等平台。建议采用静态（SSG）部署方式，我的部署配置如下：
-
-- 构建命令: `pnpm generate`/`nuxt generate`
-- 输出目录: `dist`（与Nuxt预设相同）
-- 安装命令: `pnpm i`（一般会自动检测）
-
-如果直接使用平台提供的“Nuxt”预设部署，那么会变成 SSR 模式，需要调整部署命令，请参阅 Nuxt 官方文档的 [部署](https://nuxt.com/docs/getting-started/deployment) 部分。
-
-#### 疑难解答
-
-- Vercel 先前创建的项目需要 [手动指定 pnpm 10](https://vercel.com/docs/builds/configure-a-build#corepack)。
-- Cloudflare Pages 部署项目需要配置 `NODE_VERSION` 环境变量为较新的版本，如 `22.14.0`。
-
-## 贡献
-
-欢迎参与项目：如果有具体问题或功能建议，可以发起 Issue；如果愿意在已确定的方向上增加功能或修复问题，可以提交 Pull Request。
-
-### 使用答疑
-
-使用需要具备一定的前端**项目基础**。如果你不确定代码是否有问题，可以加入 QQ 群 `169994096` 讨论（也欢迎闲聊），我很乐意在空闲时解答问题。
+1. 将代码推送到 GitHub 仓库
+2. 在 Netlify/Vercel 中连接仓库
+3. 设置构建命令：`pnpm build`
+4. 设置输出目录：`.output/public`
+5. 完成部署
 
 ## 许可证
 
-- 项目本体：[MIT](LICENSE)
-- 博客文章：[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans)
-- 请完成必要的配置与修改后再部署项目，**不得以“纸鹿”或任何与我相关的名义发布“镜像”网站**，否则我将设法与你联系。
-- 希望你在页脚保留此项目链接，助力开源传播。
+本项目采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans) 许可证。
+
+## 致谢
+
+感谢所有为这个项目做出贡献的开发者和用户。如果你喜欢这个项目，欢迎 star 和 fork。
+
+## 更新日志
+
+请查看 [GitHub Releases](https://github.com/vacuole1989/nuxt-blog/releases) 获取详细的更新信息。
