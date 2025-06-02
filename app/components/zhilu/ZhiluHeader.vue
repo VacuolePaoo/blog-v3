@@ -60,19 +60,25 @@ const appConfig = useAppConfig()
 
 @font-face {
     font-family: AlimamaFangYuanTi;
-    src: url("/fonts/AlimamaFangYuanTi.woff2");
+    src: url("/fonts/AlimamaFangYuanTi-All.woff2") format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
 }
 
 .header-title {
     font-family: AlimamaFangYuanTi;
     font-size: 1.5em;
     font-synthesis: none;
-    font-variation-settings: "wght" 600, "BEVL" 100;
+    font-weight: 600;
 
     > .splitted-char {
-        animation: 3.14s infinite alternate vf-weight, 2.72s infinite alternate vf-bevel;
+        display: inline-block;
+        will-change: font-weight;
+        animation: 3.14s infinite alternate vf-weight;
         animation-delay: var(--delay);
         animation-play-state: paused;
+        transition: font-weight 0.3s ease;
     }
 }
 
@@ -82,14 +88,18 @@ const appConfig = useAppConfig()
 }
 
 @keyframes vf-weight {
-    0% { font-weight: 600; }
-    38.2% { font-weight: 300; }
-    100% { font-weight: 900; }
-}
-
-@keyframes vf-bevel {
-    from { font-variation-settings: "BEVL" 100; }
-    to { font-variation-settings: "BEVL" 1; }
+    0% { 
+        font-weight: 600;
+        font-variation-settings: "wght" 600;
+    }
+    38.2% { 
+        font-weight: 300;
+        font-variation-settings: "wght" 300;
+    }
+    100% { 
+        font-weight: 900;
+        font-variation-settings: "wght" 900;
+    }
 }
 
 .emoji-tail {
