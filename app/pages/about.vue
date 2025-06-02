@@ -69,7 +69,7 @@ const socials: SocialLink[] = [
     },
     {
         text: '给我发邮件',
-        alt: 'me@vacuole.top',
+        alt: 'i@vacu.top',
         url: 'mailto:me@example.com',
         icon: 'line-md:email'
     },
@@ -113,26 +113,14 @@ const avatarUrl = config.header?.logo || ''
                 </div>
                 <div class="avatar-container">
                     <div class="avatar-mask"></div>
-                    <img
-                        :src="avatarUrl"
-                        alt="Avatar"
-                        class="avatar"
-                        v-if="avatarUrl"
-                    >
+                    <img :src="avatarUrl" alt="Avatar" class="avatar" v-if="avatarUrl">
                 </div>
                 <div class="site-title">
-                    液泡部落格
+                    关于 <br>液泡部落格
                 </div>
                 <div class="social-links-wrapper">
-                    <a
-                        v-for="social in socials"
-                        :key="social.text"
-                        :href="social.url"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link"
-                        :title="social.alt"
-                    >
+                    <a v-for="social in socials" :key="social.text" :href="social.url" target="_blank"
+                        rel="noopener noreferrer" class="social-link" :title="social.alt">
                         <div class="social-content">
                             <span class="social-text">{{ social.text }}</span>
                             <Icon :name="social.icon" class="social-icon" />
@@ -143,21 +131,10 @@ const avatarUrl = config.header?.logo || ''
         </div>
 
         <!-- 文章内容区域 -->
-        <ContentRenderer
-            v-if="post"
-            :value="post"
-            class="about-content"
-        >
-            <ContentRendererMarkdown
-                class="article"
-                :value="post"
-                tag="article"
-            />
+        <ContentRenderer v-if="post" :value="post" class="about-content">
+            <ContentRendererMarkdown class="article" :value="post" tag="article" />
             <template #empty>
-                <ZError
-                    icon="solar:confounded-square-bold-duotone"
-                    title="内容为空"
-                />
+                <ZError icon="solar:confounded-square-bold-duotone" title="内容为空" />
             </template>
         </ContentRenderer>
     </div>

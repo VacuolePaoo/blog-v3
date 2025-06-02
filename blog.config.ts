@@ -15,8 +15,8 @@ const blogConfig = {
     author: {
         name: 'vacuole',
         avatar: 'https://s2.loli.net/2025/05/25/NGQTfcIXyBOeHVu.jpg',
-        email: 'me@vacuole.top',
-        homepage: 'https://www.vacuole.top/',
+        email: 'i@vacu.top',
+        homepage: 'https://www.vacu.top/',
     },
     copyright: {
         abbr: 'CC BY-NC-SA 4.0',
@@ -28,7 +28,7 @@ const blogConfig = {
     qqGroup: '0',
     timeEstablished: '2022-07-19',
     timezone: 'Asia/Shanghai',
-    url: 'https://blog.vacuole.top/',
+    url: 'https://blog.vacu.top/',
 
     feed: {
         limit: 50,
