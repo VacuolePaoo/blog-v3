@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { data: post } = await useAsyncData('about', () => queryContent('/about').findOne())
+
 // 社交媒体链接类型定义
 interface SocialLink {
     text: string      // 展开显示的详细文本
@@ -140,13 +142,37 @@ const avatarUrl = config.header?.logo || ''
             </div>
         </div>
 
-        <!-- 其他部分保持不变 -->
-        <div class="about-grid">
-            <!-- 其他卡片内容保持不变 -->
-        </div>
+        <!-- 文章内容区域 -->
+        <ContentRenderer
+            v-if="post"
+            :value="post"
+            class="about-content"
+        >
+            <ContentRendererMarkdown
+                class="article"
+                :value="post"
+                tag="article"
+            />
+            <template #empty>
+                <ZError
+                    icon="solar:confounded-square-bold-duotone"
+                    title="内容为空"
+                />
+            </template>
+        </ContentRenderer>
     </div>
 </template>
 
 <style lang="scss">
 @use '@/assets/css/about' as *;
+
+.about-content {
+    max-width: 65rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+
+    .article {
+        animation: float-in 0.2s backwards;
+    }
+}
 </style>
