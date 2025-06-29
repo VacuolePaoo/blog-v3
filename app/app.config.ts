@@ -131,7 +131,7 @@ export default defineAppConfig({
         },
         system: {
             icon: 'ph:monitor-bold',
-            tip: '凹透',
+            tip: '跟随系统',
         },
         dark: {
             icon: 'ph:moon-bold',
