@@ -70,11 +70,11 @@ export default defineAppConfig({
                 ],
             },
             {
-                title: '信息',
+                title: '矩阵',
                 items: [
-                    { icon: 'simple-icons:nuxtdotjs', text: '此博客已开源', url: 'https://github.com/L33Z22L11/blog-v3' },
-                    // { icon: 'ph:swatches-bold', text: '主题和组件文档', url: '/theme' },
-                    // { icon: 'ph:certificate-bold', text: '萌备20246888号', url: 'https://icp.gov.moe/?keyword=20246888' },
+                    { icon: 'ph:lego-smiley-bold', text: '液泡主页', url: 'https://vacu.top' },
+                    { icon: 'ph:cassette-tape-bold', text: '液泡音乐馆', url: 'https://music.vacu.top' },
+                    { icon: 'ph:snowflake-bold', text: 'Rain', url: 'https://rain.vacu.top' },
                 ],
             },
         ] satisfies Nav,

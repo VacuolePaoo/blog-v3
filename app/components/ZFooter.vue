@@ -27,7 +27,7 @@ const { hitokoto, isHovered, isRefreshing, fetchHitokoto } = useHitokoto()
             <div class="hitokoto-content">
                 <span class="hitokoto-text" :class="{ hidden: isRefreshing }">{{ hitokoto }}</span>
                 <span class="hitokoto-refresh" :class="{ visible: isRefreshing }">
-                    <Icon name="ph:check-fat-bold" />
+                    <Icon name="ph:check-bold" />
                 </span>
             </div>
             <span class="hitokoto-hover">点击刷新</span>

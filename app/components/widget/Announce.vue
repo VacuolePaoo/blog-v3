@@ -23,12 +23,6 @@ const welcomeMessage = computed(() => {
             {{ welcomeMessage.prefix }}<span class="location">{{ welcomeMessage.location }}</span>{{ welcomeMessage.suffix }}
         </p>
         <p>液泡部落格在全球能够正常访问 <br><del>除了某些地区的电信</del></p>
-        <hr>
-        <p><b>当前版本 </b><code>250531-release</code></p>
-        <ul>
-            <li>添加一言组件，点击即可刷新</li>
-            <li>获取访客地理位置并欢迎</li>
-        </ul>
     </div>
 </template>
 
