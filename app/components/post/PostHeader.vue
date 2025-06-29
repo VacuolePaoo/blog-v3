@@ -28,7 +28,7 @@ const { copy, copied } = useCopy(shareText)
                     :icon="copied ? 'ph:check-bold' : 'ph:share-bold' "
                     @click="copy()"
                 >
-                    文字分享
+                    复制分享链接
                 </ZButton>
             </div>
             <div v-if="!hideInfo" class="post-info">
