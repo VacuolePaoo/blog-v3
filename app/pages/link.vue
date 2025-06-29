@@ -27,7 +27,7 @@ const { data: postLink } = await useAsyncData('/link', () => queryContent('/link
 <template>
     <header class="link-reminder">
         <div class="content">
-            <p><Icon name="ph:read-cv-logo-bold" /> 我会订阅并阅读每位朋友的RSS（如果有的话）</p>
+            <p><Icon name="ph:read-cv-logo-bold" />  我会通过订阅源阅读友链文章。</p>
             <p>
                 欢迎加入 <ProseA href="https://discord.gg/vMTSEScRSQ">Discord</ProseA> 群组
                 <!-- <Tip copy>
