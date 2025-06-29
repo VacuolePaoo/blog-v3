@@ -3,11 +3,11 @@ const appConfig = useAppConfig()
 const timeEstablished = appConfig.timeEstablished
 
 const blogLog = [
-    { date: '2030-08-10', content: '域名到期，预计会提前重定向迁移，届时会通知友链中的各位' },
-    { date: '2024-08-11', content: 'Nuxt Content 重构博客上线' },
-    { date: '2023-05-24', content: '更换框架为 Hexo，升级博客' },
-    { date: '2020-08-24', content: '更换到当前域名' },
-    { date: timeEstablished, content: '发布第一篇文章' },
+    { date: '2025-06-02', content: 'vacuole.top 到期，更换到当前域名' },
+    { date: '2025-05-18', content: '更换为Nuxt框架，并魔改纸鹿摸鱼处' },
+    { date: '2024-07-25', content: '使用Hexo框架Solitude主题重做博客' },
+    { date: '2023-08-06', content: '使用Hexo框架并魔改Butterfly主题作为博客' },
+    { date: timeEstablished, content: '第一代博客上线' },
 ]
 </script>
 
