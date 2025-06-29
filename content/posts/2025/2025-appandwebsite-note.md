@@ -7,7 +7,6 @@ image: https://s2.loli.net/2025/06/29/Gjshel6uM5Kvwcg.webp
 # type: story
 categories: [经验分享]
 tags: [Windows, Android, 软件, 网站]
-draft: true # 文章完成后，请删除此行
 ---
 
 每年都会根据自己的使用习惯，整理一份清单，方便自己重装系统或更换设备时快速恢复工作流。的我主力平台是 Windows + Android ，这篇文章记录的是这一年的主力软件与常访问网站列表。
