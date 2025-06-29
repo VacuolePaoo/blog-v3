@@ -1,4 +1,4 @@
-@import './custom-style.scss';
+@use './custom-style.scss' as *;
 
 :root {
     --font-family: "MiSans VF", "MiSans", "PingFang SC", system-ui, sans-serif;
