@@ -48,9 +48,9 @@ export default defineAppConfig({
 
 		stats: {
 			/** 归档页面每年标题对应的年龄 */
-			birthYear: 2003,
+			birthYear: 2009,
 			/** blog-stats widget 的预置文本 */
-			wordCount: '约10万',
+			wordCount: '计算中',
 		},
 	},
 
@@ -61,10 +61,8 @@ export default defineAppConfig({
 		/** 侧边栏底部图标导航 */
 		iconNav: [
 			{ icon: 'ph:house-bold', text: '个人主页', url: blogConfig.author.homepage },
-			{ icon: 'ri:qq-line', text: '交流群: 169994096', url: 'https://jq.qq.com/?_wv=1027&k=lQfNSeEd' },
-			{ icon: 'ph:github-logo-bold', text: 'GitHub: octocat', url: 'https://github.com/octocat' },
 			{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
-			{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/' },
+			{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/go-by-clouds.html' },
 		] satisfies NavItem[],
 		/** 页脚站点地图 */
 		nav: [
@@ -72,14 +70,16 @@ export default defineAppConfig({
 				title: '探索',
 				items: [
 					{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
-					{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/' },
+					{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/go-by-clouds.html' },
+					{ icon: 'ph:binoculars-bold', text: 'BlogFinder', url: 'https://bf.zzxworld.com/' },
 				],
 			},
 			{
 				title: '社交',
 				items: [
-					{ icon: 'ph:github-logo-bold', text: 'octocat', url: 'https://github.com/octocat' },
-					{ icon: 'ri:qq-line', text: '群: 169994096', url: 'https://jq.qq.com/?_wv=1027&k=lQfNSeEd' },
+					{ icon: 'ri:bilibili-fill', text: '液泡-vacuole', url: 'https://space.bilibili.com/518590350' },
+					{ icon: 'ph:github-logo-bold', text: 'VacuolePaoo', url: 'https://github.com/vacuolepaoo' },
+					{ icon: 'ph:telegram-logo-bold', text: 'Telegram', url: 'https://t.me/vacuolepao' },
 					{ icon: 'ph:envelope-simple-bold', text: blogConfig.author.email, url: `mailto:${blogConfig.author.email}` },
 				],
 			},
@@ -88,7 +88,7 @@ export default defineAppConfig({
 				items: [
 					{ icon: 'simple-icons:nuxt', text: `主题: Clarity ${version}`, url: 'https://github.com/L33Z22L11/blog-v3' },
 					{ icon: 'ph:swatches-bold', text: '主题和组件文档', url: 'https://blog.zhilu.site/theme' },
-					{ icon: 'ph:certificate-bold', text: '备案', url: 'https://beian.miit.gov.cn/' },
+					{ icon: 'ph:info-bold', text: '关于', url: '/about' },
 				],
 			},
 		] satisfies Nav,
@@ -100,7 +100,7 @@ export default defineAppConfig({
 		/** 展示标题文本，否则展示纯 Logo */
 		showTitle: true,
 		subtitle: blogConfig.subtitle,
-		emojiTail: ['📄', '🦌', '🙌', '🐟', '🏖️'],
+		emojiTail: ['🦖', 'D', 'I', 'N', 'O'],
 	},
 
 	/** 友链页面 */

@@ -2,16 +2,16 @@
 <BlogWidget
 	card
 	dim
-	title="博客/技术社区"
-	bg-img="https://p.qlogo.cn/gh/169994096/169994096/100/"
+	title="技术社区"
+	bg-img="/assets/img/server.png"
 	bg-right
 >
 	<div class="title text-creative">
-		纸网接入点
+		LadderHub <br> 绳梯社区
 	</div>
 
-	<Tip copy icon :tip-options="{ placement: 'left' }">
-		<Icon name="ri:qq-fill" />169994096
+	<Tip icon :tip-options="{ placement: 'left' }">
+		<Icon name="ph:discord-logo-bold" /><a href="https://dc.vacu.top">点击加入Discord服务器</a>
 	</Tip>
 </BlogWidget>
 </template>

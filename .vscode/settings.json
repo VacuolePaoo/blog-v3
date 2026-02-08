@@ -10,7 +10,7 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[vue]": {
-    "editor.defaultFormatter": null
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
   },
   "[yaml]": {
     "editor.formatOnSave": false
