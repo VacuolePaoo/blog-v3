@@ -1,5 +1,8 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+const { data: hitokoto } = useFetch<string>('https://v1.hitokoto.cn/?encode=text', {
+	default: () => '',
+})
 </script>
 
 <template>
@@ -20,6 +23,9 @@ const appConfig = useAppConfig()
 		</div>
 	</nav>
 	<p v-html="appConfig.footer.copyright" />
+	<p v-if="hitokoto" class="text-story hitokoto">
+		{{ hitokoto }}
+	</p>
 </footer>
 </template>
 
@@ -59,6 +65,10 @@ const appConfig = useAppConfig()
 
 	p {
 		margin: 0.5em;
+	}
+
+	.hitokoto {
+		color: var(--c-text-3);
 	}
 }
 </style>
