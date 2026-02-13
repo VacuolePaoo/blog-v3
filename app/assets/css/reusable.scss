@@ -2,10 +2,15 @@
 .card {
 	contain: paint;
 	display: block;
-	border-radius: 0.5em;
+	border: 1px solid var(--c-border);
+	border-radius: 0.75rem;
 	box-shadow: var(--box-shadow-1);
 	background-color: var(--ld-bg-card);
-	transition: all 0.2s;
+	transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+
+	&:hover, &:focus-visible {
+		box-shadow: var(--box-shadow-2);
+	}
 
 	&.upraise:hover {
 		box-shadow: var(--box-shadow-3);

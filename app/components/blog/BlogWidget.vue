@@ -84,9 +84,10 @@ defineProps<{
 	}
 
 	&.widget-card {
-		padding: 0.5rem 0.8rem;
-		border-radius: 0.8rem;
-		background-color: var(--c-bg-2);
+		padding: 0.6rem 0.9rem;
+		border: 1px solid var(--c-border);
+		border-radius: 0.75rem;
+		background-color: var(--ld-bg-card);
 
 		:deep(p) {
 			padding: 0.2em 0;
