@@ -64,11 +64,10 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .pagination {
 	display: flex;
-	max-width: calc(100vw);
+	max-width: calc(75vw);
 	margin: 1rem auto;
 	border: 1px solid var(--c-border);
 	border-radius: 0.5rem;
-	box-shadow: var(--box-shadow-1);
 	background-color: var(--ld-bg-card);
 	transition: max-width 0.2s var(--max-bezier-to-full);
 	font-variant-numeric: tabular-nums;

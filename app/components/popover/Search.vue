@@ -153,10 +153,9 @@ function openActiveItem() {
 	height: fit-content;
 	max-width: $breakpoint-mobile;
 	margin: auto;
-	border: 1px solid var(--c-primary);
+	border: 2px solid var(--c-primary);
 	border-radius: 1em;
-	box-shadow: var(--box-shadow-2), var(--box-shadow-3);
-	outline: 0.2em solid var(--c-primary-soft);
+	box-shadow: var(--box-shadow-3);
 	background-color: var(--ld-bg-card);
 }
 
@@ -196,7 +195,7 @@ function openActiveItem() {
 
 .tip {
 	max-height: 1rem;
-	margin: 0 1em 0.5rem;
+	margin: 0 1em 0.8rem;
 	font-size: 0.8em;
 	text-align: center;
 	color: var(--c-text-3);

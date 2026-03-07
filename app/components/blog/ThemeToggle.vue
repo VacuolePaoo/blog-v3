@@ -25,9 +25,9 @@ const colorMode = useColorMode()
 	width: fit-content;
 	margin: 0 auto;
 	padding: 2px;
-	border: 1px solid var(--c-border);
+	border: 2px solid var(--c-border);
 	border-radius: 1rem;
-	background-color: var(--c-bg-2);
+	background-color: var(--c-bg-1);
 
 	> button {
 		padding: 4px 1rem;
@@ -40,8 +40,7 @@ const colorMode = useColorMode()
 		}
 
 		&.active {
-			box-shadow: var(--box-shadow-2);
-			background-color: var(--ld-bg-card);
+			background-color: var(--c-bg-3);
 			color: var(--c-text-1);
 			cursor: auto;
 		}

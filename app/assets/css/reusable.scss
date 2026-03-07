@@ -4,12 +4,13 @@
 	display: block;
 	border: 1px solid var(--c-border);
 	border-radius: 0.75rem;
-	box-shadow: var(--box-shadow-1);
+
+	// box-shadow: var(--box-shadow-1);
 	background-color: var(--ld-bg-card);
 	transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 
 	&:hover, &:focus-visible {
-		box-shadow: var(--box-shadow-2);
+		box-shadow: var(--box-shadow-3);
 	}
 
 	&.upraise:hover {
