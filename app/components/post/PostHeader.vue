@@ -70,15 +70,11 @@ const { copy, copied } = useCopy(shareText)
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 1rem;
+	overflow: hidden;
 	margin: 0.5rem;
 	border: 2px solid var(--c-border);
 	border-radius: 1rem;
 	background-color: var(--c-bg-2);
-
-	@media (max-width: $breakpoint-mobile) {
-		margin: 0;
-		border-radius: 0;
-	}
 
 	&.has-cover {
 		min-height: 16rem;
