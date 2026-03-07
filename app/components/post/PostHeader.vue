@@ -18,50 +18,48 @@ const { copy, copied } = useCopy(shareText)
 </script>
 
 <template>
-<div class="post-header" :class="{ 'has-cover': image }">
-	<Pic v-if="image" class="post-cover" :src="image" :alt="title" :filter="coverFilter" />
-	<div class="post-nav">
-		<div class="operations">
-			<ZButton
-				:icon="copied ? 'ph:check-bold' : 'ph:share-bold'"
-				@click="copy()"
-			>
-				文字分享
-			</ZButton>
-		</div>
-
-		<div v-if="!meta?.hideInfo" class="post-info">
-			<UtilDate
-				v-if="date"
-				v-tip
-				:tip-transform="d => `创建于${d}`"
-				:date
-				icon="ph:calendar-dots-bold"
-			/>
-
-			<UtilDate
-				v-if="updated && isTimeDiffSignificant(date, updated, 1)"
-				v-tip
-				:tip-transform="d => `修改于${d}`"
-				:date="updated"
-				icon="ph:calendar-plus-bold"
-			/>
-
-			<span v-if="categoryLabel">
-				<Icon :name="categoryIcon" />
-				{{ categoryLabel }}
-			</span>
-
-			<span>
-				<Icon name="ph:paragraph-bold" />
-				{{ formatNumber(readingTime?.words) }} 字
-			</span>
-		</div>
-	</div>
-
+<div class="header-card">
 	<h1 class="post-title" :class="getPostTypeClassName(type)">
 		{{ title }}
 	</h1>
+	<div class="operations">
+		<ZButton
+			:icon="copied ? 'ph:check-bold' : 'ph:share-bold'"
+			@click="copy()"
+		>
+			文字分享
+		</ZButton>
+	</div>
+	<div v-if="!meta?.hideInfo" class="post-info">
+		<UtilDate
+			v-if="date"
+			v-tip
+			:tip-transform="d => `创建于${d}`"
+			:date
+			icon="ph:calendar-dots-bold"
+		/>
+
+		<UtilDate
+			v-if="updated && isTimeDiffSignificant(date, updated, 1)"
+			v-tip
+			:tip-transform="d => `修改于${d}`"
+			:date="updated"
+			icon="ph:calendar-plus-bold"
+		/>
+
+		<span v-if="categoryLabel">
+			<Icon :name="categoryIcon" />
+			{{ categoryLabel }}
+		</span>
+
+		<span>
+			<Icon name="ph:paragraph-bold" />
+			{{ formatNumber(readingTime?.words) }} 字
+		</span>
+	</div>
+</div>
+<div v-if="image" class="post-header has-cover">
+	<Pic class="post-cover" :src="image" :alt="title" :filter="coverFilter" />
 </div>
 </template>
 
@@ -73,38 +71,19 @@ const { copy, copied } = useCopy(shareText)
 	justify-content: space-between;
 	gap: 1rem;
 	margin: 0.5rem;
+	border: 2px solid var(--c-border);
 	border-radius: 1rem;
 	background-color: var(--c-bg-2);
-	color: var(--c-text);
 
 	@media (max-width: $breakpoint-mobile) {
 		margin: 0;
 		border-radius: 0;
 	}
 
-	&:hover .operations,
-	&:focus-within .operations {
-		opacity: 1;
-	}
-
 	&.has-cover {
 		min-height: 16rem;
 		max-height: 20rem;
-		color: white;
 		transition: font-size 0.2s;
-
-		.post-info {
-			filter: drop-shadow(0 1px 2px #000);
-		}
-
-		.post-title {
-			background-image: linear-gradient(transparent, #0003, #0005);
-			text-shadow: var(--text-shadow-black);
-
-			&.text-story {
-				text-align: center;
-			}
-		}
 	}
 }
 
@@ -128,22 +107,34 @@ const { copy, copied } = useCopy(shareText)
 	}
 }
 
+.header-card {
+	contain: paint;
+	display: block;
+	margin: 0.5rem;
+	border: 2px solid var(--c-border);
+	border-radius: 1rem;
+	background-color: var(--ld-bg-card);
+	transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+
+	&:hover .operations,
+
+	&:focus-within .operations {
+		opacity: 1;
+	}
+}
+
 .post-title {
-	padding: 0.8em 1rem;
+	padding: 0.75rem 1rem 0;
 	font-size: 1.6em;
-	line-height: 1.2;
 	z-index: 1;
 }
 
-.post-nav {
-	padding: 0.8em 1rem;
+.post-info {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em 1.2em;
+	column-gap: clamp(1em, 3%, 1.5em);
+	padding: 0.75rem 1rem;
 	font-size: 0.8em;
-
-	.post-info {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5em 1.2em;
-		column-gap: clamp(1em, 3%, 1.5em);
-	}
 }
 </style>
