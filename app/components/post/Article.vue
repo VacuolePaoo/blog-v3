@@ -104,13 +104,13 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 
 .article-cover {
 	position: absolute;
-	opacity: 0.8;
+	opacity: 1;
 	inset-inline-end: 0;
 	top: 0;
-	width: min(320px, 50%);
+	width: min(320px, 40%);
 	height: 100%;
 	margin: 0;
-	mask-image: linear-gradient(to var(--end), transparent, #FFF 50%);
+	border-radius: 1rem 0 0 1rem;
 	transition: opacity 0.2s;
 	object-fit: cover;
 
@@ -132,6 +132,7 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 		max-height: 256px;
 		aspect-ratio: 2.4;
 		margin-bottom: -10%;
+		border-radius: 1rem;
 		mask-image: linear-gradient(#FFF 50%, transparent);
 
 		& + article {
