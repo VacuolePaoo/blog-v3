@@ -1,5 +1,7 @@
 import { LazyPopoverSearch } from '#components'
 
+export type SearchSource = 'all' | 'title' | 'content' | 'tags'
+
 export const useSearchStore = defineStore('search', () => {
 	// 搜索框应和侧边栏状态联动
 	const layoutStore = useLayoutStore()
@@ -7,6 +9,7 @@ export const useSearchStore = defineStore('search', () => {
 
 	const word = ref('')
 	const debouncedWord = refDebounced(word)
+	const source = ref<SearchSource>('all')
 
 	const {
 		open: _open,
@@ -33,5 +36,6 @@ export const useSearchStore = defineStore('search', () => {
 	return {
 		word,
 		debouncedWord,
+		source,
 	}
 })

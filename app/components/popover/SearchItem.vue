@@ -5,13 +5,23 @@ interface SearchItem extends SearchResult {
 	title: string
 	content: string
 	titles: string[]
+	tags: string[]
 	level: number
 }
 
-withDefaults(defineProps<Partial<SearchItem>>(), {
+const props = withDefaults(defineProps<Partial<SearchItem>>(), {
 	titles: () => [],
+	tags: () => [],
 	title: '',
 })
+
+const normalizedQueryTerms = computed(() => (props.queryTerms ?? []).map(term => term.toLowerCase()).filter(Boolean))
+function isTagMatched(tag: string) {
+	if (!normalizedQueryTerms.value.length)
+		return false
+	const normalizedTag = tag.toLowerCase()
+	return normalizedQueryTerms.value.some(term => normalizedTag.includes(term))
+}
 </script>
 
 <template>
@@ -21,6 +31,9 @@ withDefaults(defineProps<Partial<SearchItem>>(), {
 		<Icon v-if="level === 1" name="ph:file-text-bold" />
 	</hgroup>
 	<p v-if="content" class="content" v-html="highlightHtml(content, queryTerms)" />
+	<ul v-if="tags?.length" class="tag-list">
+		<li v-for="tag in tags" :key="tag" class="tag" :class="{ matched: isTagMatched(tag) }" v-text="tag" />
+	</ul>
 </UtilLink>
 </template>
 
@@ -60,5 +73,35 @@ withDefaults(defineProps<Partial<SearchItem>>(), {
 	font-size: 0.8em;
 	white-space: pre-wrap;
 	color: var(--c-text-2);
+}
+
+.tag-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4em;
+	margin-top: 0.4em;
+	font-size: 0.75em;
+	color: var(--c-text-2);
+}
+
+.tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.1em;
+	padding: 0.05em 0.4em;
+	border: 1px solid var(--c-border);
+	border-radius: 0.6em;
+	background-color: var(--c-bg-2);
+
+	&.matched {
+		border-color: var(--c-primary);
+		background-color: var(--c-primary-soft);
+		color: var(--c-primary);
+	}
+
+	&::before {
+		content: "#";
+		opacity: 0.5;
+	}
 }
 </style>

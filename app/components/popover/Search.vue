@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SearchResult } from 'minisearch'
 import MiniSearch from 'minisearch'
 
 const props = defineProps<{
@@ -15,32 +16,108 @@ const segmenter = Intl.Segmenter && new Intl.Segmenter(appConfig.language, { gra
 // await useAsyncData() 会阻塞渲染
 const { data, status } = await useLazyAsyncData(
 	'search',
-	() => queryCollectionSearchSections('content', {
-		ignoredTags: ['pre'],
-	}),
+	async () => {
+		const [sections, metaList] = await Promise.all([
+			queryCollectionSearchSections('content', {
+				ignoredTags: ['pre'],
+			}),
+			queryCollection('content')
+				.where('extension', '=', 'md')
+				.select('path', 'tags', 'title', 'categories')
+				.all(),
+		])
+		const metaMap = new Map(metaList.map(item => [item.path, item]))
+
+		return sections.map((section) => {
+			const basePath = section.id.split('#')[0]
+			const meta = metaMap.get(basePath)
+			const tags = meta?.tags ?? []
+			const pageTitle = meta?.title ?? ''
+			const category = meta?.categories?.[0] ?? ''
+			const isTopLevel = section.id === basePath
+
+			return {
+				...section,
+				category,
+				tags,
+				pageTitle: isTopLevel ? pageTitle : '',
+				searchTags: isTopLevel ? tags : [],
+				headingTitle: section.id.includes('#') ? section.title : '',
+				searchTitles: (section.titles ?? []).filter(title => title && title !== pageTitle),
+			}
+		})
+	},
 )
 
 const miniSearch = new MiniSearch({
-	fields: ['title', 'content'],
-	storeFields: ['title', 'titles', 'content', 'level'],
+	fields: ['pageTitle', 'headingTitle', 'searchTitles', 'content', 'searchTags'],
+	storeFields: ['title', 'titles', 'content', 'level', 'tags', 'category'],
 	searchOptions: {
 		prefix: true,
 		fuzzy: 0.2,
 		combineWith: 'AND',
-		boost: { title: 3, titles: 2 },
+		boost: {
+			pageTitle: 4,
+			headingTitle: 2,
+			searchTitles: 1.5,
+			searchTags: 2,
+		},
 	},
 	processTerm: segmenter
 		? term => Array.from(segmenter.segment(term)).map(seg => seg.segment.toLowerCase())
 		: undefined,
 })
 
-const searchStore = useSearchStore()
 const searchInput = ref<HTMLInputElement>()
 
-const { word, debouncedWord } = storeToRefs(searchStore)
-const result = computed(() => {
+const { word, debouncedWord, source } = storeToRefs(useSearchStore())
+const sourceOptions = [
+	{
+		key: 'all',
+		label: '全部',
+		fields: ['pageTitle', 'headingTitle', 'searchTitles', 'content', 'searchTags'] as string[],
+	},
+	{
+		key: 'title',
+		label: '标题',
+		fields: ['pageTitle'] as string[],
+	},
+	{
+		key: 'content',
+		label: '内容',
+		fields: ['headingTitle', 'searchTitles', 'content'] as string[],
+	},
+	{
+		key: 'tags',
+		label: '标签',
+		fields: ['searchTags'] as string[],
+	},
+] as const
+interface SearchResultItem extends SearchResult {
+	category?: string
+}
+
+const result = computed<SearchResultItem[]>(() => {
 	void data.value
-	return miniSearch.search(debouncedWord.value)
+	const query = debouncedWord.value.trim()
+	if (!query)
+		return []
+	const fields = sourceOptions.find(item => item.key === source.value)?.fields ?? sourceOptions[0].fields
+	return miniSearch.search(query, { fields }) as SearchResultItem[]
+})
+const categoryFilter = ref('all')
+const categoryOptions = computed(() => {
+	const categories = new Set<string>()
+	for (const item of data.value ?? []) {
+		if (item.category)
+			categories.add(item.category)
+	}
+	return Array.from(categories).sort((left, right) => left.localeCompare(right, appConfig.language))
+})
+const filteredResult = computed(() => {
+	if (categoryFilter.value === 'all')
+		return result.value
+	return result.value.filter(item => item.category === categoryFilter.value)
 })
 
 const isKeyboardMode = ref(false)
@@ -57,7 +134,7 @@ watch(status, (newStatus) => {
 	}
 })
 
-watch(debouncedWord, () => {
+watch([debouncedWord, source, categoryFilter], () => {
 	activeIndex.value = 0
 })
 
@@ -71,9 +148,14 @@ async function focusInput(allSelect = false) {
 		searchInput.value?.select()
 }
 
+function setSource(nextSource: typeof source.value) {
+	source.value = nextSource
+	focusInput()
+}
+
 function updateActiveIndex(index: number, isKeyboard = false) {
 	focusInput()
-	if (index < 0 || index >= result.value?.length)
+	if (index < 0 || index >= filteredResult.value?.length)
 		return
 	activeIndex.value = index
 	if (isKeyboard)
@@ -81,11 +163,6 @@ function updateActiveIndex(index: number, isKeyboard = false) {
 	if (activeItem.value && isKeyboardMode.value) {
 		activeItem.value.scrollIntoView({ block: 'nearest' })
 	}
-}
-
-function openActiveItem() {
-	// 触发 vue-router 点击事件
-	activeItem.value?.click()
 }
 </script>
 
@@ -108,19 +185,37 @@ function openActiveItem() {
 			>
 		</form>
 
+		<menu class="scrollcheck-x source-picker">
+			<li v-for="option in sourceOptions" :key="option.key">
+				<button
+					type="button"
+					class="source-btn"
+					:class="{ active: source === option.key }"
+					@click="setSource(option.key)"
+				>
+					{{ option.label }}
+				</button>
+			</li>
+			<PopoverSearchCategoryDropdown
+				v-model="categoryFilter"
+				:options="categoryOptions"
+				@change="focusInput()"
+			/>
+		</menu>
+
 		<TransitionGroup name="expand">
-			<div v-if="debouncedWord && status === 'success' && !result.length" class="no-result">
+			<div v-if="debouncedWord && status === 'success' && !filteredResult.length" class="no-result">
 				无结果
 			</div>
 
 			<menu
-				v-if="result.length"
+				v-if="filteredResult.length"
 				ref="list-result"
-				:key="result.length < 5 ? result.length : result[0]?.id"
+				:key="filteredResult.length < 5 ? filteredResult.length : filteredResult[0]?.id"
 				class="scrollcheck-y search-result"
 			>
 				<PopoverSearchItem
-					v-for="(item, itemIndex) in result"
+					v-for="(item, itemIndex) in filteredResult"
 					:key="item.id"
 					v-bind="item"
 					:class="{ active: activeIndex === itemIndex }"
@@ -128,11 +223,11 @@ function openActiveItem() {
 				/>
 			</menu>
 
-			<div v-if="result.length" class="tip" @click="searchInput?.focus()">
+			<div v-if="filteredResult.length" class="tip" @click="searchInput?.focus()">
 				<Key code="ArrowUp" prevent @press="updateActiveIndex(activeIndex - 1, true)" />
 				<Key code="ArrowDown" prevent @press="updateActiveIndex(activeIndex + 1, true)" />
 				切换&emsp;
-				<Key code="Enter" icon @press="openActiveItem" />
+				<Key code="Enter" icon @press="activeItem?.click()" />
 				选择&emsp;
 				<Key code="Escape" :icon="false" @press="$emit('close')" />
 				关闭
@@ -170,6 +265,35 @@ function openActiveItem() {
 		width: 100%;
 		padding: 1em 0;
 		outline: none;
+	}
+}
+
+.source-picker {
+	--fadeout-width: 1.6em;
+	--control-height: 1.8em;
+	--control-radius: 0.7em;
+
+	display: flex;
+	align-items: center;
+	gap: 0.3em;
+	margin: 0;
+	padding: 0.2em 0.8em 0.6em;
+}
+
+.source-btn {
+	height: var(--control-height);
+	padding: 0 0.55em;
+	border: 1px solid var(--c-border);
+	border-radius: var(--control-radius);
+	background-color: var(--c-bg-2);
+	font-size: 0.8em;
+	color: var(--c-text-2);
+	transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+
+	&.active {
+		border-color: var(--c-primary);
+		background-color: var(--c-primary-soft);
+		color: var(--c-primary);
 	}
 }
 
