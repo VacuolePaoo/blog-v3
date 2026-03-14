@@ -7,11 +7,13 @@ interface SearchItem extends SearchResult {
 	titles: string[]
 	tags: string[]
 	level: number
+	isPreview: boolean
 }
 
 const props = withDefaults(defineProps<Partial<SearchItem>>(), {
 	titles: () => [],
 	tags: () => [],
+	isPreview: false,
 	title: '',
 })
 
@@ -27,6 +29,7 @@ function isTagMatched(tag: string) {
 <template>
 <UtilLink :to="id" class="search-item">
 	<hgroup class="text-creative">
+		<span v-if="isPreview" class="preview-badge">预览 · 未发布</span>
 		<span v-for="heading in [...titles, title]" :key="heading" class="title" v-html="highlightHtml(heading, queryTerms)" />
 		<Icon v-if="level === 1" name="ph:file-text-bold" />
 	</hgroup>
@@ -66,6 +69,19 @@ function isTagMatched(tag: string) {
 
 .title + .iconify {
 	margin-inline-start: 0.2em;
+}
+
+.preview-badge {
+	display: inline-flex;
+	align-items: center;
+	margin-inline-end: 0.4em;
+	padding: 0.12em 0.4em;
+	border: 1px solid var(--c-warning);
+	border-radius: 0.5em;
+	background-color: var(--c-warning-soft);
+	font-size: 0.7em;
+	letter-spacing: 0.02em;
+	color: var(--c-warning);
 }
 
 .content {

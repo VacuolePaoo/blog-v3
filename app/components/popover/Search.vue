@@ -31,6 +31,7 @@ const { data, status } = await useLazyAsyncData(
 		return sections.map((section) => {
 			const basePath = section.id.split('#')[0]
 			const meta = metaMap.get(basePath)
+			const isPreview = basePath.startsWith('/previews/')
 			const tags = meta?.tags ?? []
 			const pageTitle = meta?.title ?? ''
 			const category = meta?.categories?.[0] ?? ''
@@ -39,6 +40,7 @@ const { data, status } = await useLazyAsyncData(
 			return {
 				...section,
 				category,
+				isPreview,
 				tags,
 				pageTitle: isTopLevel ? pageTitle : '',
 				searchTags: isTopLevel ? tags : [],
@@ -51,7 +53,7 @@ const { data, status } = await useLazyAsyncData(
 
 const miniSearch = new MiniSearch({
 	fields: ['pageTitle', 'headingTitle', 'searchTitles', 'content', 'searchTags'],
-	storeFields: ['title', 'titles', 'content', 'level', 'tags', 'category'],
+	storeFields: ['title', 'titles', 'content', 'level', 'tags', 'category', 'isPreview'],
 	searchOptions: {
 		prefix: true,
 		fuzzy: 0.2,
@@ -95,6 +97,7 @@ const sourceOptions = [
 ] as const
 interface SearchResultItem extends SearchResult {
 	category?: string
+	isPreview?: boolean
 }
 
 const result = computed<SearchResultItem[]>(() => {
