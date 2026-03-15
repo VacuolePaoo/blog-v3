@@ -9,6 +9,7 @@ const appConfig = useAppConfig()
 const coverFilter = computed(() => props.meta?.coverFilter || (props.meta?.coverDim && 'brightness(0.75)') || undefined)
 const categoryLabel = computed(() => props.categories?.[0])
 const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
+const isPreview = computed(() => props.path?.startsWith('/previews/'))
 
 const shareText = `【${appConfig.title}】${props.title}\n\n${
 	props.description ? `${props.description}\n\n` : ''}${
@@ -22,10 +23,12 @@ const { copy, copied } = useCopy(shareText)
 	<h1 class="post-title" :class="getPostTypeClassName(type)">
 		{{ title }}
 	</h1>
+	<span v-if="isPreview" class="preview-badge">预览 · 未发布</span>
 	<div class="operations">
 		<ZButton
 			:icon="copied ? 'ph:check-bold' : 'ph:share-bold'"
-			@click="copy()"
+			:disabled="isPreview"
+			@click="!isPreview && copy()"
 		>
 			文字分享
 		</ZButton>
@@ -106,6 +109,7 @@ const { copy, copied } = useCopy(shareText)
 .header-card {
 	contain: paint;
 	display: block;
+	position: relative;
 	margin: 0.5rem;
 	border: 2px solid var(--c-border);
 	border-radius: 1rem;
@@ -117,6 +121,22 @@ const { copy, copied } = useCopy(shareText)
 	&:focus-within .operations {
 		opacity: 1;
 	}
+}
+
+.preview-badge {
+	display: inline-flex;
+	align-items: center;
+	position: absolute;
+	inset-block-start: 0.75rem;
+	inset-inline-end: 1rem;
+	padding: 0.25em 0.6em;
+	border: 1px solid var(--c-warning);
+	border-radius: 0.7em;
+	background-color: var(--c-warning-soft);
+	font-size: 0.75em;
+	letter-spacing: 0.02em;
+	color: var(--c-warning);
+	user-select: none;
 }
 
 .post-title {
