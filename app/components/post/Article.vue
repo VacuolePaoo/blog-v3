@@ -131,12 +131,13 @@ const categoryIcon = computed(() => getCategoryIcon(categoryLabel.value))
 		max-width: none;
 		max-height: 256px;
 		aspect-ratio: 2.4;
-		margin-bottom: -10%;
-		border-radius: 1rem;
-		mask-image: linear-gradient(#FFF 50%, transparent);
+		margin-bottom: 0;
+		border-radius: 0;
+		mask-image: none;
 
 		& + article {
 			width: auto;
+			text-shadow: none;
 		}
 	}
 

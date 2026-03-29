@@ -20,6 +20,9 @@ const { copy, copied } = useCopy(shareText)
 
 <template>
 <div class="header-card">
+	<div v-if="image" class="post-header has-cover">
+		<Pic class="post-cover" :src="image" :alt="title" :filter="coverFilter" />
+	</div>
 	<h1 class="post-title" :class="getPostTypeClassName(type)">
 		{{ title }}
 	</h1>
@@ -61,9 +64,6 @@ const { copy, copied } = useCopy(shareText)
 		</span>
 	</div>
 </div>
-<div v-if="image" class="post-header has-cover">
-	<Pic class="post-cover" :src="image" :alt="title" :filter="coverFilter" />
-</div>
 </template>
 
 <style lang="scss" scoped>
@@ -74,15 +74,21 @@ const { copy, copied } = useCopy(shareText)
 	justify-content: space-between;
 	gap: 1rem;
 	overflow: hidden;
-	margin: 0.5rem;
-	border: 2px solid var(--c-border);
-	border-radius: 1rem;
+	margin: 0.5rem 0.5rem 0;
+	border-radius: 0.75rem;
 	background-color: var(--c-bg-2);
 
 	&.has-cover {
 		min-height: 16rem;
 		max-height: 20rem;
+		box-shadow: var(--box-shadow-3);
 		transition: font-size 0.2s;
+	}
+
+	@media (max-width: $breakpoint-phone) {
+		margin: 0;
+		border: 0;
+		border-radius: 0;
 	}
 }
 
@@ -121,6 +127,13 @@ const { copy, copied } = useCopy(shareText)
 	&:focus-within .operations {
 		opacity: 1;
 	}
+
+	@media (max-width: $breakpoint-phone) {
+		margin: 0 0 0.5rem;
+		border: 0;
+		border-bottom: 2px solid var(--c-border);
+		border-radius: 0;
+	}
 }
 
 .preview-badge {
@@ -140,7 +153,7 @@ const { copy, copied } = useCopy(shareText)
 }
 
 .post-title {
-	padding: 0.75rem 1rem 0;
+	padding: 1rem 1rem 0;
 	font-size: 1.6em;
 	z-index: 1;
 }
@@ -152,5 +165,11 @@ const { copy, copied } = useCopy(shareText)
 	column-gap: clamp(1em, 3%, 1.5em);
 	padding: 0.75rem 1rem;
 	font-size: 0.8em;
+}
+
+@media (max-width: $breakpoint-phone) {
+	.post-header {
+		border-radius: 0;
+	}
 }
 </style>
