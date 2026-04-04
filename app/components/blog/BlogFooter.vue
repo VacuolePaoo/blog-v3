@@ -1,7 +1,24 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
-const { data: hitokoto } = useFetch<string>('https://v1.hitokoto.cn/?encode=text', {
-	default: () => '',
+const hitokoto = ref('')
+const hitokotoReady = ref(false)
+
+async function fetchHitokoto() {
+	hitokotoReady.value = false
+
+	try {
+		hitokoto.value = await $fetch<string>('https://v1.hitokoto.cn/?encode=text')
+	}
+	catch {
+		hitokoto.value = ''
+	}
+	finally {
+		hitokotoReady.value = true
+	}
+}
+
+onMounted(() => {
+	fetchHitokoto()
 })
 </script>
 
@@ -23,8 +40,8 @@ const { data: hitokoto } = useFetch<string>('https://v1.hitokoto.cn/?encode=text
 		</div>
 	</nav>
 	<p v-html="appConfig.footer.copyright" />
-	<p v-if="hitokoto" class="text-story hitokoto">
-		{{ hitokoto }}
+	<p class="text-story hitokoto" :class="{ 'is-ready': hitokotoReady && hitokoto }">
+		<span>{{ hitokoto }}</span>
 	</p>
 </footer>
 </template>
@@ -68,7 +85,25 @@ const { data: hitokoto } = useFetch<string>('https://v1.hitokoto.cn/?encode=text
 	}
 
 	.hitokoto {
+		min-height: calc(1.75em * 2);
 		color: var(--c-text-3);
+
+		span {
+			display: inline-block;
+			opacity: 0;
+			transform: translateY(0.6rem);
+			transition:
+				opacity 0.45s ease,
+				filter 0.45s ease,
+				transform 0.45s ease;
+			filter: blur(8px);
+		}
+
+		&.is-ready span {
+			opacity: 1;
+			transform: translateY(0);
+			filter: blur(0);
+		}
 	}
 }
 </style>

@@ -62,31 +62,29 @@ export default defineAppConfig({
 		iconNav: [
 			{ icon: 'ph:house-bold', text: '个人主页', url: blogConfig.author.homepage },
 			{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
-			{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/go-by-clouds.html' },
 		] satisfies NavItem[],
 		/** 页脚站点地图 */
 		nav: [
 			{
-				title: '探索',
+				title: 'Explore',
 				items: [
-					{ icon: 'ph:rss-simple-bold', text: 'Atom订阅', url: '/atom.xml' },
 					{ icon: 'ph:subway-bold', text: '开往', url: 'https://www.travellings.cn/go-by-clouds.html' },
 					{ icon: 'ph:binoculars-bold', text: 'BlogFinder', url: 'https://bf.zzxworld.com/' },
 				],
 			},
 			{
-				title: '社交',
+				title: 'Contact Me',
 				items: [
-					{ icon: 'ri:bilibili-fill', text: '液泡-vacuole', url: 'https://space.bilibili.com/518590350' },
-					{ icon: 'ph:github-logo-bold', text: 'VacuolePaoo', url: 'https://github.com/vacuolepaoo' },
-					{ icon: 'ph:telegram-logo-bold', text: 'Telegram', url: 'https://t.me/vacuolepao' },
+					{ icon: 'ri:bilibili-fill', text: 'Bilibili', url: 'https://space.bilibili.com/518590350' },
+					{ icon: 'ph:github-logo-bold', text: 'GitHub', url: 'https://github.com/vacuolepaoo' },
+					{ icon: 'ph:discord-logo-bold', text: 'Discord', url: 'https://dc.vacu.top' },
 					{ icon: 'ph:envelope-simple-bold', text: blogConfig.author.email, url: `mailto:${blogConfig.author.email}` },
 				],
 			},
 			{
-				title: '信息',
+				title: 'Info',
 				items: [
-					{ icon: 'simple-icons:nuxt', text: `主题: Clarity ${version}`, url: 'https://github.com/L33Z22L11/blog-v3' },
+					{ icon: 'simple-icons:nuxt', text: `Clarity ${version}`, url: 'https://github.com/L33Z22L11/blog-v3' },
 					{ icon: 'ph:swatches-bold', text: '主题和组件文档', url: 'https://blog.zhilu.site/theme' },
 					{ icon: 'ph:info-bold', text: '关于', url: '/about' },
 				],

@@ -23,7 +23,13 @@ const [pm, pmVersion] = packageManager.split('@') as [string, string]
 
 const service = computed(() => ([
 	...ci ? [{ label: '构建平台', value: ciPlatform }] : [],
-	{ label: '图片存储', value: () => ['本地储存'] },
+	{
+		label: '图片存储',
+		value: () => h('span', {}, [
+			h(Icon, { name: 'ph:cloud-arrow-up-duotone' }),
+			' 自建图床',
+		]),
+	},
 	{ label: '软件协议', value: 'MIT' },
 	{ label: '文章许可', value: appConfig.copyright.abbr },
 	{ label: '规范域名', value: getDomain(appConfig.url) },
