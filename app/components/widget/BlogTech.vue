@@ -26,7 +26,7 @@ const service = computed(() => ([
 	{
 		label: '图片存储',
 		value: () => h('span', {}, [
-			h(Icon, { name: 'ph:cloud-arrow-up-duotone' }),
+			h(Icon, { name: 'ph:cloud-arrow-up-fill' }),
 			' 自建图床',
 		]),
 	},
