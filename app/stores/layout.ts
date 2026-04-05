@@ -7,6 +7,7 @@ export const useLayoutStore = defineStore('layout', () => {
 
 	const state = ref<LayoutState>('none')
 	const asideWidgets = ref<WidgetName[]>([])
+	const readingFocus = ref(false)
 	const panelTranslate = ref<Partial<Record<PanelTranslateSource, string>>>({})
 
 	const panelTransform = computed(() => Object.values(panelTranslate.value).map(v => v ? `translate(${v})` : '').join(' '))
@@ -24,6 +25,10 @@ export const useLayoutStore = defineStore('layout', () => {
 			asideWidgets.value = widgets
 	}
 
+	const setReadingFocus = (value: boolean) => {
+		readingFocus.value = value
+	}
+
 	useEventListener('keydown', (e) => {
 		if (state.value !== 'none' && e.key === 'Escape') {
 			e.preventDefault()
@@ -33,15 +38,18 @@ export const useLayoutStore = defineStore('layout', () => {
 
 	router.beforeEach(() => {
 		close()
+		setReadingFocus(false)
 	})
 
 	return {
 		state,
 		asideWidgets,
+		readingFocus,
 		panelTranslate,
 		panelTransform,
 		close,
 		toggle,
 		setAside,
+		setReadingFocus,
 	}
 })

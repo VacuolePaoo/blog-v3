@@ -22,6 +22,7 @@ function setTocAndMeta() {
 setTocAndMeta()
 
 if (post.value) {
+	layoutStore.setReadingFocus(true)
 	useSeoMeta({
 		title: post.value.title,
 		ogType: 'article',
@@ -31,6 +32,7 @@ if (post.value) {
 	layoutStore.setAside(post.value.meta?.aside as WidgetName[] | undefined)
 }
 else {
+	layoutStore.setReadingFocus(false)
 	const event = useRequestEvent()
 	event && setResponseStatus(event, 404)
 	route.meta.title = '404'
@@ -40,6 +42,7 @@ else {
 if (import.meta.dev) {
 	watchEffect(() => {
 		setTocAndMeta()
+		layoutStore.setReadingFocus(Boolean(post.value))
 		layoutStore.setAside(post.value?.meta?.aside as WidgetName[] | undefined)
 	})
 }
