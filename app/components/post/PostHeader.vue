@@ -29,11 +29,15 @@ const { copy, copied } = useCopy(shareText)
 	<span v-if="isPreview" class="preview-badge">预览 · 未发布</span>
 	<div class="operations">
 		<ZButton
+			class="share-button"
+			:aria-label="copied ? '已复制链接' : '复制链接'"
 			:icon="copied ? 'ph:check-bold' : 'ph:share-bold'"
 			:disabled="isPreview"
 			@click="!isPreview && copy()"
 		>
-			文字分享
+			<span class="share-button-label" :class="{ 'is-visible': copied }">
+				{{ copied ? '已复制' : '文字分享' }}
+			</span>
 		</ZButton>
 	</div>
 	<div v-if="!meta?.hideInfo" class="post-info">
@@ -99,6 +103,32 @@ const { copy, copied } = useCopy(shareText)
 	color: var(--c-text-1);
 	transition: opacity 0.2s;
 	z-index: 1;
+}
+
+@media (max-width: $breakpoint-phone) {
+	.operations {
+		opacity: 1;
+	}
+
+	:deep(.share-button .button-main) {
+		gap: 0;
+		transition: gap 0.18s ease;
+	}
+
+	.share-button-label {
+		overflow: hidden;
+		opacity: 0;
+		max-width: 0;
+		white-space: nowrap;
+		transition: max-width 0.18s ease, margin-inline-start 0.18s ease, opacity 0.12s ease;
+
+		&.is-visible {
+			opacity: 1;
+			max-width: 3em;
+			margin-inline-start: 0.2em;
+			animation: share-copy-label-in 0.18s ease-out;
+		}
+	}
 }
 
 .post-cover {
@@ -170,6 +200,18 @@ const { copy, copied } = useCopy(shareText)
 @media (max-width: $breakpoint-phone) {
 	.post-header {
 		border-radius: 0;
+	}
+}
+
+@keyframes share-copy-label-in {
+	from {
+		opacity: 0;
+		transform: translateY(0.15rem);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
 	}
 }
 </style>
