@@ -17,6 +17,15 @@
 <!-- eslint-disable-next-line vue/enforce-style-attribute -->
 <style lang="scss">
 #blog-root {
+	--reading-focus-opacity: 0.32;
+	--reading-focus-blur: 1.5px;
+	--reading-focus-duration: 0.45s;
+	--reading-focus-duration-hover: 0.28s;
+	--reading-focus-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	--reading-focus-ease-hover: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#blog-root {
 	display: flex;
 	justify-content: center;
 	gap: 1rem;
@@ -30,10 +39,30 @@
 	height: 100vh;
 	height: 100dvh;
 	min-width: 0; // 防止搜索框撑开页面
+	transition:
+		opacity var(--reading-focus-duration) var(--reading-focus-ease),
+		filter var(--reading-focus-duration) var(--reading-focus-ease);
+	will-change: opacity, filter;
 	scrollbar-width: thin;
 
 	@media (max-width: $breakpoint-widescreen) {
 		flex-shrink: 0.2;
+	}
+}
+
+@media (min-width: calc($breakpoint-mobile + 1px)) {
+	body.page-reading #blog-sidebar,
+	body.page-reading #blog-aside {
+		opacity: var(--reading-focus-opacity);
+		filter: saturate(0.88) blur(var(--reading-focus-blur));
+	}
+
+	body.page-reading #blog-sidebar:hover,
+	body.page-reading #blog-aside:hover {
+		opacity: 1;
+		transition-duration: var(--reading-focus-duration-hover);
+		transition-timing-function: var(--reading-focus-ease-hover);
+		filter: none;
 	}
 }
 

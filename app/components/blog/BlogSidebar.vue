@@ -2,7 +2,6 @@
 const appConfig = useAppConfig()
 const layoutStore = useLayoutStore()
 const searchStore = useSearchStore()
-const { readingFocus } = storeToRefs(layoutStore)
 
 const { text } = useTextSelection()
 const debouncedSelection = refDebounced(text)
@@ -16,7 +15,7 @@ const debouncedSelection = refDebounced(text)
 />
 
 <!-- 不能用 Transition 实现弹出收起动画，因为半宽屏状态始终显示 -->
-<aside id="blog-sidebar" :class="{ 'show': layoutStore.state === 'sidebar', 'reading-focus': readingFocus }">
+<aside id="blog-sidebar" :class="{ show: layoutStore.state === 'sidebar' }">
 	<BlogHeader class="sidebar-header" to="/" />
 
 	<nav class="sidebar-nav scrollcheck-y">
@@ -55,18 +54,13 @@ const debouncedSelection = refDebounced(text)
 	display: flex;
 	flex-direction: column;
 	color: var(--c-text-2);
-	transition: opacity 0.2s ease, color 0.2s ease;
+	transition:
+		color 0.2s ease,
+		opacity var(--reading-focus-duration) var(--reading-focus-ease),
+		filter var(--reading-focus-duration) var(--reading-focus-ease);
 
 	&:hover {
 		color: currentcolor;
-	}
-
-	&.reading-focus {
-		opacity: 0.32;
-
-		&:hover {
-			opacity: 1;
-		}
 	}
 
 	@media (max-width: $breakpoint-mobile) {
@@ -78,12 +72,11 @@ const debouncedSelection = refDebounced(text)
 		backdrop-filter: blur(0.5rem);
 		color: currentcolor;
 		transform: var(--transform-start-far);
-		transition: transform 0.2s, opacity 0.2s ease;
+		transition:
+			transform 0.2s,
+			opacity var(--reading-focus-duration) var(--reading-focus-ease),
+			filter var(--reading-focus-duration) var(--reading-focus-ease);
 		z-index: var(--z-index-popover);
-
-		&.reading-focus {
-			opacity: 1;
-		}
 
 		&.show {
 			box-shadow: var(--box-shadow-1), var(--box-shadow-3);
