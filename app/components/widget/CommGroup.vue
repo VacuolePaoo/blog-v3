@@ -19,6 +19,14 @@
 	display: block;
 	text-decoration: none;
 	color: inherit;
+
+	.blog-widget + & {
+		margin-top: 1rem;
+	}
+
+	& + :deep(.blog-widget) {
+		margin-top: 1rem;
+	}
 }
 
 .title {
