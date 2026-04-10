@@ -1,12 +1,11 @@
-// 友链检测 CLI 需要使用显式导入和相对路径
 import type { FeedGroup } from '../app/types/feed'
 import { myFeed } from '../blog.config'
 import { getFavicon, getGhAvatar, getGhIcon, getOicqAvatar, OicqAvatarSize } from './utils/img'
 
 export default [
 	{
-		name: '优质推荐',
-		desc: '拥有优质内容或设计的博客。',
+		name: '相谈甚多',
+		desc: '社区伙伴/线下好友，高度相似的爱好和品味',
 		entries: [
 			{
 				author: '纸鹿本鹿',
@@ -18,6 +17,8 @@ export default [
 				icon: getFavicon('blog.zhilu.site'),
 				feed: 'https://blog.zhilu.site/atom.xml',
 				comment: '本博客主题作者，专注用户体验，细节狂魔',
+				archs: ['Nuxt', 'Vercel'],
+				sitenick: '摸鱼处',
 			},
 			{
 				author: 'kzhik',
@@ -30,14 +31,14 @@ export default [
 				feed: 'https://www.kzhik.cn/resources/rss.xml',
 			},
 			{
-				author: '张洪Heo',
-				link: 'https://blog.zhheo.com/',
-				desc: '分享设计与科技生活',
-				avatar: 'https://img.zhheo.com/i/67d8fa75943e4.webp',
-				icon: getFavicon('blog.zhheo.com'),
-				date: '2026-02-07',
-				feed: 'https://blog.zhheo.com/rss.xml',
-				comment: '专业设计师，其博客风格被众多博主参考',
+				author: '云森🍥🍥🍥',
+				title: 'Yunsen的小窝',
+				desc: '行之，皆为乐意',
+				date: '2026-04-10',
+				avatar: 'https://img.alicdn.com/bao/uploaded/i4/O1CN01TWOpM42DSyY5nC0hM_!!0-mtopupload.jpg',
+				link: 'https://blog.imysen.com/',
+				icon: getFavicon('blog.imysen.com'),
+				feed: 'https://blog.imysen.com/feed/',
 			},
 		],
 	},
@@ -57,6 +58,17 @@ export default [
 				desc: '为世界上一切美好而战！',
 				comment: '社区内活跃成员，曾经搞崩过群组',
 				feed: 'https://nahida.im/rss.xml',
+			},
+
+			{
+				author: '张洪Heo',
+				link: 'https://blog.zhheo.com/',
+				desc: '分享设计与科技生活',
+				avatar: 'https://img.zhheo.com/i/67d8fa75943e4.webp',
+				icon: getFavicon('blog.zhheo.com'),
+				date: '2026-02-07',
+				feed: 'https://blog.zhheo.com/rss.xml',
+				comment: '专业设计师，其博客风格被众多博主参考',
 			},
 		],
 	},
