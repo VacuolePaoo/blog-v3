@@ -1,4 +1,8 @@
-# 纸鹿摸鱼处
+# 液泡部落格
+
+# 基于Zhilu-ClarityTheme开发
+
+## 上游 https://github.com/L33Z22L11/blog-v3
 
 [![框架](https://img.shields.io/badge/框架-Nuxt-00DC82?logo=Nuxt.js)](https://nuxt.com/)
 [![CMS](https://img.shields.io/badge/CMS-Nuxt%20Content-00DC82?logo=Nuxt.js)](https://content.nuxt.com/)
@@ -22,46 +26,6 @@
 <!-- 2. 2025-12-28 [Axel Beta](https://github.com/ErenAxel/blog-v3)：sc.axel.xin《我们的设备被拿来做了什么：软件的背景行为》《深色模式开发的最佳实践》《寻不回手工油糕》 -->
 
 -
-
-## 使用本主题的博客
-
-> [!WARNING]
->
-> 修改本项目需要具备**前端开发**和**项目部署**能力。由于这是个人博客，代码经过深度定制，且可能会进行较大幅度的更新，建议您 Fork 后安心使用自己分支的版本；若需引入上游（本仓库）的新功能，建议重新 Fork 最新代码，以避免同步冲突。
->
-> 如果需要协助或有问题咨询，欢迎加入 QQ 群 169994096 讨论/闲聊，我会在空闲时尽力解答。
-
-> 主题吸收了 [Stellar](https://github.com/xaoxuu/hexo-theme-stellar) 的设计风格，命名为 **Clarity**，寓意清楚的阅读体验和清晰的观点表达。限于下游越来越多，未来将会有选择地收录。
-
-| 博客名称                                     | 作者          | 对应上游版本号 | 下游特色功能                                 |
-| -------------------------------------------- | ------------- | -------------- | -------------------------------------------- |
-| **[纸鹿摸鱼处](https://blog.zhilu.site/)**   | **L33Z22L11** | v3.7.1         | (我是上游)                                   |
-| [希乐博客](https://blog.xlenco.top/)         | Xlenco        | v3.4.8         | 最新评论                                     |
-| [月空人](https://www.weilog.me/)             | Whbbit1999    | v3.7.0-alpha.4 | 项目/博客/Snippets页                         |
-| [Mugzx's Blog](https://blog.mugzx.top/)      | Mugzx         | v3.7.0         | 设计风格统一                                 |
-| [喵落阁](https://blog-v3.kemeow.top/)        | Kemeow815     | v3.4.7         | 即刻+友圈+最新评论+游戏/番剧页               |
-| [梦爱吃鱼](https://blog.bsgun.cn/)           | JLinmr        | v3.6.0         | 即刻+友圈+最新评论                           |
-| [Mikuの极光星](https://blog.sotkg.com/)      | PaloMiku      | v3.6.5         | 设计风格统一，设置面板                       |
-| [Shenley的存档点](https://blog.shenley.cn/)  | shenlye       | v3.4.4         | 游戏/番剧页，方形卡片+科技风                 |
-| [BiuXin-s Blog](https://zhilu.biuxin.com/)   | damizai       | v3.2-250304    | 即刻+友圈+最新评论                           |
-| [液泡部落格](https://blog.vacu.top/)         | VacuolePaoo   | v3.6.3         | 一言+标签tags+页脚随机友链                   |
-| [闻絮语](https://www.wxuyu.top/)             | 661111        | v3.6.5         | 即刻+友圈+Heo友链轮播/Profile                |
-| [落憾](https://blog.luoh.org/)               | LuoH-AN       | v3.7.0-rc.0    | 即刻+一言+卡片Profile                        |
-| [落尘up](https://www.luochen.chat/)          | luochenup     | v3.3.4         | 侧栏时间轴                                   |
-| [fishcpy的小破站](https://blog.fis.ink/)     | fishcpy       | v3.4.8         | 友圈+Artalk评论                              |
-| [六月墨语](https://blog.june.ink/)           | Akuma-real    | v3.6.3         | 友圈+最新评论                                |
-| [Cталин博客](https://blog.jiclub.site/)      | StalinDev54   | v3.4.8         | 侧栏时间轴+关于页                            |
-| [栖童の小站](https://blog.linux-qitong.top/) | Linux-qitong  | v3.7.0         | 即刻+友圈                                    |
-| [墨韵云阁](https://luoyuanxiang.top/)        | luoyuanxiang  | v3.6.0-rc.2    |                                              |
-| [鹊楠の小窝](https://blog.quenan.cn/)        | QNquenan      | v3.4.9         |                                              |
-| [KingKangBlog](https://blog.kingkang.xyz/)   | KingStoning   | v3.4.9         |                                              |
-| [LittleBun](https://blog.wl.do/)             | CiZaii        | v3.5.1         |                                              |
-| [钟神秀](https://blog.zsxcoder.top/)         | mcyzsx        | v3.6.0         |                                              |
-| [林间拾语](https://www.xhhao.com/)           | acanyo        | Halo           | https://www.halo.run/store/apps/app-jglhpodw |
-| [Wa 的小家](https://blog.gslpro.top/)        | Shalomguan    | v3.5.2         |                                              |
-| [青序栈](https://www.qixz.cn/)               | scfcn         | v3.6.4         |                                              |
-| [Axel Beta](https://sc.axel.xin/)            | ErenAxel      | v3.7.0-rc.0    |                                              |
-| [AirTouch](https://www.xsl.im/)              | AirTouch666   | v3.6.0         |                                              |
 
 ## 特性
 
