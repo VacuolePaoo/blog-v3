@@ -79,6 +79,12 @@ const blogConfig = {
 		{ src: 'https://cdnjs.snrat.com/ajax/libs/twikoo/1.7.13/twikoo.min.js', defer: true },
 	],
 
+	/** 全站统计配置 */
+	stats: {
+		/** 全站文章字数统计排除的文件，按 content 目录下的文件匹配，支持 * 和 ** 通配符 */
+		excludeFiles: ['link.md', 'theme.md', 'previews/**'],
+	},
+
 	/** 自己部署的 Twikoo 服务 */
 	twikoo: {
 		envId: 'https://vacuoletwikoo.netlify.app/.netlify/functions/twikoo',

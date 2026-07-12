@@ -1,3 +1,5 @@
+import blogConfig from '~~/blog.config'
+
 interface StatsEntry {
 	posts: number
 	words: number
@@ -9,6 +11,26 @@ interface CategoryEntry {
 	children?: CategoryEntry[]
 }
 
+function globToRegExp(pattern: string): RegExp {
+	const source = pattern
+		.replace(/[.+^${}()|[\]\\]/g, '\\$&')
+		.replace(/\*+/g, stars => stars.length >= 2 ? '.*' : '[^/]*')
+	return new RegExp(`^${source}$`)
+}
+
+/** 规范化路径：统一分隔符并去除 content/ 前缀 */
+function normalizeStatsFile(file: string): string {
+	return file.replace(/\\/g, '/').replace(/^content\//, '')
+}
+
+const excludeMatchers = blogConfig.stats.excludeFiles
+	.map(pattern => normalizeStatsFile(pattern).trim())
+	.filter(Boolean)
+	.map(pattern => globToRegExp(pattern))
+
+const isExcludedStatsFile = (id?: string) =>
+	!!id && excludeMatchers.some(re => re.test(normalizeStatsFile(id)))
+
 export default defineEventHandler(async (event) => {
 	const stats = {
 		total: { posts: 0, words: 0 },
@@ -17,9 +39,10 @@ export default defineEventHandler(async (event) => {
 		tags: <string[]>[],
 	}
 
-	const existedPath = new Map()
+	const existedPaths = new Set<string>()
 
-	const posts = await queryCollection(event, 'content').all()
+	const posts = (await queryCollection(event, 'content').all())
+		.filter(post => !isExcludedStatsFile(post.id))
 
 	const findOrCreateCategory = (
 		name: string,
@@ -35,9 +58,9 @@ export default defineEventHandler(async (event) => {
 
 	for (const post of posts) {
 		// 重复路径检测
-		if (existedPath.has(post.path))
+		if (existedPaths.has(post.path))
 			console.warn('文章存在重复路径', post.path)
-		existedPath.set(post.path, true)
+		existedPaths.add(post.path)
 
 		// 文章/总字数计数
 		stats.total.posts++
