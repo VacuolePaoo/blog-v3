@@ -5,36 +5,77 @@ import { myFeed } from '../blog.config'
 import { getFavicon, getGithubAvatar, getGithubIcon, getOciqGroupAvatar, getOicqAvatar, OicqAvatarSize } from './utils/img'
 
 export default [
-	// #region 网上邻居 since 2024
+	// #region 相谈甚多
 	{
-		name: '网上邻居',
-		desc: '哔——啵——电波通讯中，欢迎常来串门。',
+		name: '相谈甚多',
+		desc: '志同道合的网友or现实朋友',
 		// @keep-sorted { "keys": ["date"] }
 		entries: [
 			{
-				author: 'isYangs',
-				desc: '一个前端Bug构造师的博客',
-				link: 'https://www.isyangs.cn/',
-				feed: 'https://www.isyangs.cn/feed.xml',
-				icon: 'https://www.isyangs.cn/favicon.svg',
-				avatar: 'https://7.isyangs.cn/8/655c9835780a0-8.jpg',
-				archs: ['Vue', '国内 CDN'],
-				date: '2024-01-29',
-				comment: '高中时认识的小学校友，目前从事前端开发。',
+				author: '纸鹿本鹿',
+				sitenick: '摸鱼处',
+				title: '纸鹿摸鱼处',
+				desc: '纸鹿至麓不知路，支炉制露不止漉',
+				link: 'https://blog.zhilu.site/',
+				icon: getFavicon('blog.zhilu.site'),
+				avatar: 'https://www.zhilu.site/api/avatar.png',
+				date: '2026-07-13',
+				archs: ['Nuxt', 'Vercel'],
+				feed: 'https://blog.zhilu.site/atom.xml',
+				comment: '本博客主题作者，前端大手子，细节狂魔'
 			},
 			{
-				author: 'KazariEX',
-				sitenick: '微光档案',
-				desc: '故事就是只为你一个人而存在的世界',
-				link: 'https://archive.bikari.top/',
-				feed: 'https://archive.bikari.top/feed',
-				icon: 'https://archive.bikari.top/image/favicon.svg',
-				avatar: getGithubAvatar('KazariEX'),
-				archs: ['Nuxt', 'Netlify'],
-				date: '2024-01-30',
-				comment: 'Vue.js Member，前端大手子。',
+				author: 'kzhik',
+				title: "kzhik's website",
+				desc: 'EXPLORE THE WORLD!',
+				link: 'https://www.kzhik.cn',
+				icon: getFavicon('www.kzhik.cn'),
+				avatar: 'https://www.kzhik.cn/avatar.webp',
+				date: '2026-07-13',
+				feed: 'https://www.kzhik.cn/rss.xml',
 			},
+			{
+				author: '🍥云森',
+				sitenick: '小窝',
+				title: 'Yunsen的小窝',
+				desc: '行之，皆为乐意',
+				link: 'https://blog.imysen.com/',
+				feed: 'https://blog.imysen.com/feed',
+				icon: getFavicon('blog.imysen.com'),
+				avatar: 'https://img.alicdn.com/bao/uploaded/i4/O1CN01TWOpM42DSyY5nC0hM_!!0-mtopupload.jpg',
+				archs: ['WordPress', '虚拟主机'],
+				date: '2025-12-23',
+				comment: '喜食鱼板',
+			},
+			{
+				author: "纳西妲",
+				sitenick: "Nahida",
+				desc: "为世界上一切美好而战！",
+				link: "https://nahida.im",
+				feed: "https://nahida.im/rss.xml",
+				icon: "https://file.vacu.top/file/1783955984304_0c0d9ea21b81a5fa35754edb1c70e1c1e683cda40b7eb999c328c90ed4d9f122.png",
+				avatar: "https://file.vacu.top/file/1783955984304_0c0d9ea21b81a5fa35754edb1c70e1c1e683cda40b7eb999c328c90ed4d9f122.png",
+				archs: ["Astro", "Netlify"],
+				date: "2025-05-30",
+			},
+
 		],
 	},
 	// #endregion
+	{
+		name: '网上邻居',
+		// @keep-sorted { "keys": ["date"] }
+		entries: [
+			{
+				author: '洪畅',
+				title: '洪畅的博客',
+				desc: '想，全是问题；做，才有答案。',
+				link: 'https://blog.hcbu.cn/',
+				icon: 'https://gitee.com/hcbug/picture1/raw/master/20260607223324364.webp',
+				avatar: 'https://gitee.com/hcbug/picture1/raw/master/20260607223324364.webp',
+				date: '2026-07-13',
+				feed: 'https://blog.hcbu.cn/atom.xml',
+			},
+		],
+	}
 ] satisfies FeedGroup[]

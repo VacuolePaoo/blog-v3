@@ -36,7 +36,7 @@ const archIcons = {
 	'Zeabur': 'tabler:square-letter-z-filled', // 不准确
 	'国内 CDN': 'tabler:cloud-data-connection',
 	'服务器': 'tabler:server',
-	'虚拟主机': 'tabler:cloud-upload',
+	'虚拟主机': 'tabler:cloud-fog',
 }
 
 export type Arch = keyof typeof archIcons
