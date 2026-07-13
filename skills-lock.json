@@ -13,6 +13,12 @@
       "skillPath": "skills/antfu-design/SKILL.md",
       "computedHash": "79b14b59749a69b04c0c6f4e6908d36aea0df920eb0d9c44be144cdca388d25d"
     },
+    "nitro": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "skillPath": "skills/nitro/SKILL.md",
+      "computedHash": "843e56adae395045465339da71943c0706d6e92b76e7f2c3571712d377fd2604"
+    },
     "nuxt": {
       "source": "antfu/skills",
       "sourceType": "github",
