@@ -1,0 +1,360 @@
+{
+  "MDC Alert 块": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-alert",
+    "description": "插入带类型、标题和样式的 Alert 块",
+    "body": [
+      "::alert{type=\"${1|info,question,warning,error|}\" title=\"${2:标题}\"${3: card}}",
+      "${0:内容}",
+      "::"
+    ]
+  },
+  "MDC Alert 插槽": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-alert-slots",
+    "description": "插入使用标题和默认插槽的 Alert 块",
+    "body": [
+      "::alert{type=\"${1|info,question,warning,error|}\"${2: card}}",
+      "#title",
+      "${3:标题}",
+      "#default",
+      "${0:内容}",
+      "::"
+    ]
+  },
+  "MDC Alert 行内": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-alert-inline",
+    "description": "插入仅显示标题的行内 Alert",
+    "body": [
+      ":alert{icon=\"${1:tabler:files}\" color=\"${2:var(--c-accent)}\" title=\"${0:标题}\"}"
+    ]
+  },
+  "MDC Badge": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-badge",
+    "description": "插入 Badge",
+    "body": [
+      ":badge[${1:文本}]{link=\"${2:https://example.com}\"${3: round}}$0"
+    ]
+  },
+  "MDC Badge 图片": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-badge-image",
+    "description": "插入带图片的 Badge",
+    "body": [
+      ":badge[${1:文本}]{img=\"${2:https://example.com/avatar.png}\" link=\"${3:https://example.com}\"${4: square}}$0"
+    ]
+  },
+  "MDC Blog Header": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-blog-header",
+    "description": "插入博客标题组件",
+    "body": [
+      ":blog-header$0"
+    ]
+  },
+  "MDC Blur 行内": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-blur",
+    "description": "插入行内模糊文本",
+    "body": [
+      ":blur[${0:需要隐藏的内容}]"
+    ]
+  },
+  "MDC Blur 块": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-blur-block",
+    "description": "插入可容纳其他 MDC 内容的模糊块",
+    "body": [
+      "::blur",
+      "${0:内容}",
+      "::"
+    ]
+  },
+  "MDC Card List": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-card-list",
+    "description": "插入卡片样式列表",
+    "body": [
+      "::card-list",
+      "- ${1:列表项 1}",
+      "- ${2:列表项 2}",
+      "  - ${0:子列表项}",
+      "::"
+    ]
+  },
+  "MDC Chat": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-chat",
+    "description": "插入聊天记录",
+    "body": [
+      "::chat",
+      "{:${1:2024-11-09 23:39:30}}",
+      "",
+      "{.}",
+      "",
+      "${2:右侧消息}",
+      "",
+      "{${3:用户}}",
+      "",
+      "${0:左侧消息}",
+      "::"
+    ]
+  },
+  "MDC Copy": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-copy",
+    "description": "插入可复制、可编辑的单行代码",
+    "body": [
+      ":copy{${1:prompt }lang=\"${2:sh}\" code=\"${0:pnpm dev}\"}"
+    ]
+  },
+  "MDC Emoji Clock": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-emoji-clock",
+    "description": "插入 Emoji 时钟",
+    "body": [
+      ":emoji-clock{${1|rotate,datetime=\"2024-11-09 23:39:30\"|}}$0"
+    ]
+  },
+  "MDC Folding": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-folding",
+    "description": "插入折叠内容",
+    "body": [
+      "::folding{title=\"${1:标题}\"${2: open}}",
+      "${0:内容}",
+      "::"
+    ]
+  },
+  "MDC Folding 插槽": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-folding-slots",
+    "description": "插入使用标题和默认插槽的折叠内容",
+    "body": [
+      "::folding${1:{open}}",
+      "#title",
+      "${2:标题}",
+      "#default",
+      "${0:内容}",
+      "::"
+    ]
+  },
+  "MDC Key": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-key",
+    "description": "插入按键或组合键",
+    "body": [
+      ":key{code=\"${1:Escape}\"${2: ctrl}${3: alt}${4: shift}${5: icon}}$0"
+    ]
+  },
+  "MDC Link Banner": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-link-banner",
+    "description": "插入横幅链接卡片",
+    "body": [
+      "::link-banner",
+      "---",
+      "banner: ${1:https://example.com/banner.jpg}",
+      "title: ${2:标题}",
+      "description: ${3:描述}",
+      "link: \"${0:https://example.com}\"",
+      "---",
+      "::"
+    ]
+  },
+  "MDC Link Card": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-link-card",
+    "description": "插入链接卡片",
+    "body": [
+      "::link-card",
+      "---",
+      "icon: ${1:https://example.com/icon.png}",
+      "title: ${2:标题}",
+      "description: ${3:描述}",
+      "link: \"${0:https://example.com}\"",
+      "---",
+      "::"
+    ]
+  },
+  "MDC Meta Aside": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-meta-aside",
+    "description": "插入目录侧栏插槽组件",
+    "body": [
+      "::meta-aside-foo{title=\"${1:侧栏标题}\"${2: card}}",
+      "${0:侧栏内容}",
+      "::"
+    ]
+  },
+  "MDC Meta Copyright": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-meta-copyright",
+    "description": "插入文章末尾许可协议插槽",
+    "body": [
+      "::meta-copyright{title=\"${1:许可说明}\"}",
+      "${0:许可协议内容}",
+      "::"
+    ]
+  },
+  "MDC Pic": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-pic",
+    "description": "插入支持说明和灯箱缩放的图片",
+    "body": [
+      "::pic",
+      "---",
+      "src: ${1:https://example.com/image.jpg}",
+      "caption: ${2:说明文字}",
+      "${3:width: 480}",
+      "${4:# zoom: false}",
+      "---",
+      "::$0"
+    ]
+  },
+  "MDC Poetry": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-poetry",
+    "description": "插入诗歌组件",
+    "body": [
+      "::poetry",
+      "---",
+      "title: ${1:诗歌标题}",
+      "author: ${2:作者}",
+      "footer: ${3:落款}",
+      "---",
+      "${0:诗歌正文}",
+      "::"
+    ]
+  },
+  "MDC Quote 行内": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-quote",
+    "description": "插入行内 Quote",
+    "body": [
+      ":quote[${0:引用内容}]"
+    ]
+  },
+  "MDC Quote 块": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-quote-block",
+    "description": "插入带图标的 Quote 块",
+    "body": [
+      "::quote{icon=\"${1:tabler:files}\"}",
+      "${0:引用内容}",
+      "::"
+    ]
+  },
+  "MDC Quote 插槽": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-quote-slots",
+    "description": "插入自定义图标插槽的 Quote 块",
+    "body": [
+      "::quote",
+      "#icon",
+      "${1:ヾ(•ω•`)o}",
+      "#default",
+      "${0:引用内容}",
+      "::"
+    ]
+  },
+  "MDC Tab": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-tab",
+    "description": "插入双选项卡",
+    "body": [
+      "::tab{:tabs='[\"${1:选项卡 1}\", \"${2:选项卡 2}\"]'}",
+      "#tab1",
+      "${3:内容 1}",
+      "#tab2",
+      "${0:内容 2}",
+      "::"
+    ]
+  },
+  "MDC Tab 高级": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-tab-advanced",
+    "description": "插入支持居中和默认选项的 Tab",
+    "body": [
+      "::tab",
+      "---",
+      "tabs: [\"${1:选项卡 1}\", \"${2:选项卡 2}\", \"${3:选项卡 3}\"]",
+      "center: ${4:true}",
+      "active: ${5:1}",
+      "---",
+      "#tab1",
+      "${6:内容 1}",
+      "#tab2",
+      "${7:内容 2}",
+      "#tab3",
+      "${0:内容 3}",
+      "::"
+    ]
+  },
+  "MDC Timeline": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-timeline",
+    "description": "插入时间线",
+    "body": [
+      "::timeline",
+      "{${1:时间点 1}}",
+      "",
+      "${2:内容 1}",
+      "",
+      "{${3:时间点 2}}",
+      "",
+      "${0:内容 2}",
+      "::"
+    ]
+  },
+  "MDC Tip": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-tip",
+    "description": "插入带悬浮提示的行内文本",
+    "body": [
+      ":tip[${1:显示文本}]{tip=\"${0:提示内容}\"}"
+    ]
+  },
+  "MDC Video Raw": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-video-raw",
+    "description": "插入原始视频地址",
+    "body": [
+      "::video-embed",
+      "---",
+      "type: raw",
+      "id: ${1:https://example.com/video.mp4}",
+      "poster: ${0:https://example.com/poster.jpg}",
+      "---",
+      "::"
+    ]
+  },
+  "MDC Video Bilibili": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-video-bilibili",
+    "description": "插入 Bilibili 视频",
+    "body": [
+      "::video-embed",
+      "---",
+      "type: bilibili",
+      "id: ${0:BV1xxxxxxxxx}",
+      "---",
+      "::"
+    ]
+  },
+  "MDC Video Douyin": {
+    "scope": "markdown,mdc",
+    "prefix": "mdc-video-douyin",
+    "description": "插入抖音横屏或竖屏视频",
+    "body": [
+      "::video-embed",
+      "---",
+      "type: ${1|douyin-wide,douyin|}",
+      "id: '${0:视频 ID}'",
+      "---",
+      "::"
+    ]
+  }
+}
