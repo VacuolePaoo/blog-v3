@@ -1,5 +1,16 @@
 <script setup lang="ts">
 const appConfig = useAppConfig()
+
+const hitokoto = shallowRef('')
+onMounted(async () => {
+	try {
+		const content = await $fetch<string>('https://v1.hitokoto.cn/?encode=text', { timeout: 5000 })
+		hitokoto.value = content || '一言获取失败'
+	}
+	catch {
+		hitokoto.value = '一言获取失败'
+	}
+})
 </script>
 
 <template>
@@ -18,6 +29,11 @@ const appConfig = useAppConfig()
 		</div>
 	</nav>
 	<p v-html="appConfig.footer.copyright" />
+	<Transition name="hitokoto">
+		<p v-if="hitokoto" class="text-story">
+			{{ hitokoto }}
+		</p>
+	</Transition>
 </footer>
 </template>
 
@@ -57,5 +73,13 @@ const appConfig = useAppConfig()
 	p {
 		margin: 0.5em;
 	}
+}
+
+.hitokoto-enter-active {
+	transition: opacity var(--delay);
+}
+
+.hitokoto-enter-from {
+	opacity: 0;
 }
 </style>
