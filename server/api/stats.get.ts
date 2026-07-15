@@ -11,25 +11,16 @@ interface CategoryEntry {
 	children?: CategoryEntry[]
 }
 
-function globToRegExp(pattern: string): RegExp {
-	const source = pattern
-		.replace(/[.+^${}()|[\]\\]/g, '\\$&')
-		.replace(/\*+/g, stars => stars.length >= 2 ? '.*' : '[^/]*')
-	return new RegExp(`^${source}$`)
+function toStatsFileLikePattern(file: string) {
+	const normalized = file
+		.trim()
+		.replace(/\\/g, '/')
+		.replace(/^\/+/, '')
+		.replace(/^content\//, '')
+		.replace(/\*+/g, '%')
+
+	return normalized && `content/${normalized}`
 }
-
-/** 规范化路径：统一分隔符并去除 content/ 前缀 */
-function normalizeStatsFile(file: string): string {
-	return file.replace(/\\/g, '/').replace(/^content\//, '')
-}
-
-const excludeMatchers = blogConfig.stats.excludeFiles
-	.map(pattern => normalizeStatsFile(pattern).trim())
-	.filter(Boolean)
-	.map(pattern => globToRegExp(pattern))
-
-const isExcludedStatsFile = (id?: string) =>
-	!!id && excludeMatchers.some(re => re.test(normalizeStatsFile(id)))
 
 export default defineEventHandler(async (event) => {
 	const stats = {
@@ -41,8 +32,14 @@ export default defineEventHandler(async (event) => {
 
 	const existedPaths = new Set<string>()
 
-	const posts = (await queryCollection(event, 'content').all())
-		.filter(post => !isExcludedStatsFile(post.id))
+	let query = queryCollection(event, 'content')
+	for (const pattern of blogConfig.stats.excludeFiles) {
+		const likePattern = toStatsFileLikePattern(pattern)
+		if (likePattern)
+			query = query.where('id', 'NOT LIKE', likePattern)
+	}
+
+	const posts = await query.all()
 
 	const findOrCreateCategory = (
 		name: string,
