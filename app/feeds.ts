@@ -75,6 +75,7 @@ export default [
 				avatar: 'https://gitee.com/hcbug/picture1/raw/master/20260607223324364.webp',
 				date: '2026-07-13',
 				feed: 'https://blog.hcbu.cn/atom.xml',
+				sitenick: '已失效',
 			},
 		],
 	}

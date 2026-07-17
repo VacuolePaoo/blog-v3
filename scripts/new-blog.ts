@@ -182,7 +182,7 @@ if (permalink)
 // #region 打开 VS Code
 const s = spinner()
 s.start('正在打开 VS Code...')
-exec(`code "${mdPath}"`, (error) => {
+exec(`codium "${mdPath}"`, (error) => {
 	if (!error)
 		return
 	s.stop('⚠️ 无法打开 VS Code，请确认已通过命令面板注册 code 命令到 PATH')
