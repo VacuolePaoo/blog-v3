@@ -3,7 +3,7 @@ title: VSCodium自用配置
 description: 分享我的VSCodium自用配置，包括外观设置、Git配置与开发体验优化，以及实用插件推荐。
 date: 2026-07-17 08:23:40
 updated: 2026-07-17 08:23:40
-image: https://file.vacu.top/file/1784247814310_Frame_2.png
+image: https://file.vacu.top/file/DWR4byNt.png
 permalink: /posts/38ee48f
 categories: [技术]
 tags: [vscode, 自用]
