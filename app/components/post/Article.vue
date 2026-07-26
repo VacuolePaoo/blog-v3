@@ -21,7 +21,7 @@ const showAllDate = isTimeDiffSignificant(props.date, props.updated)
 			<UtilDate
 				v-if="date && (showAllDate || !useUpdated)"
 				:date
-				icon="tabler:pencil-minus"
+				icon="tabler:calendar"
 			/>
 
 			<UtilDate
@@ -49,6 +49,7 @@ const showAllDate = isTimeDiffSignificant(props.date, props.updated)
 .article-card {
 	container-type: inline-size;
 	position: relative;
+	overflow: hidden;
 	margin: 1em 0;
 	border-radius: 0.8em;
 	color: var(--c-text);
@@ -89,19 +90,13 @@ const showAllDate = isTimeDiffSignificant(props.date, props.updated)
 
 .article-cover {
 	position: absolute;
-	opacity: 0.8;
 	inset-inline-end: 0;
 	top: 0;
-	width: calc(40% + 2em);
+	width: 40%;
 	height: 100%;
 	margin: 0;
-	mask-image: linear-gradient(to var(--end), transparent, #FFF 50%);
-	transition: opacity 0.2s;
+	border-radius: 0.8em;
 	object-fit: cover;
-
-	:hover > & {
-		opacity: 1;
-	}
 
 	& + article {
 		position: relative;
@@ -115,15 +110,11 @@ const showAllDate = isTimeDiffSignificant(props.date, props.updated)
 		max-width: none;
 		max-height: 256px;
 		aspect-ratio: 2.4;
-		margin-bottom: -10%;
-		mask-image: linear-gradient(#FFF 50%, transparent);
+		margin-bottom: 0;
+		border-radius: 0.8em;
 
 		& + article {
 			width: auto;
-
-			> .article-title {
-				text-shadow: 0 0 0.2em var(--ld-bg-card), 0 0 0.5em var(--ld-bg-card), 0 0 1em var(--ld-bg-card);
-			}
 		}
 	}
 
