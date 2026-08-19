@@ -4,7 +4,7 @@ const appConfig = useAppConfig()
 const hitokoto = shallowRef('')
 onMounted(async () => {
 	try {
-		const content = await $fetch<string>('https://v1.hitokoto.cn/?encode=text', { timeout: 5000 })
+		const content = await $fetch<string>('https://hitokotov1.api.236668.xyz/?encode=text', { timeout: 5000 })
 		hitokoto.value = content || '一言获取失败'
 	}
 	catch {

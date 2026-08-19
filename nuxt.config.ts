@@ -16,6 +16,7 @@ function pluginPath(path: string) {
 // 此处配置无需修改
 export default defineNuxtConfig({
 	app: {
+		cdnURL: 'https://oss1.236668.xyz/vacublog/260818/',
 		head: {
 			meta: [
 				{ name: 'author', content: [blogConfig.author.name, blogConfig.author.email].filter(Boolean).join(', ') },
