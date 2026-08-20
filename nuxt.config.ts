@@ -16,7 +16,7 @@ function pluginPath(path: string) {
 // 此处配置无需修改
 export default defineNuxtConfig({
 	app: {
-		cdnURL: 'https://oss1.236668.xyz/vacublog/260818/',
+		cdnURL: env.NUXT_APP_CDN_URL || '',
 		head: {
 			meta: [
 				{ name: 'author', content: [blogConfig.author.name, blogConfig.author.email].filter(Boolean).join(', ') },
@@ -29,9 +29,9 @@ export default defineNuxtConfig({
 				{ rel: 'icon', href: blogConfig.favicon },
 				{ rel: 'alternate', type: 'application/atom+xml', href: '/atom.xml' },
 				{ rel: 'preconnect', href: blogConfig.twikoo.preload },
-				{ rel: 'stylesheet', href: 'https://cdnjs.snrat.com/ajax/libs/KaTeX/0.16.44/katex.min.css', media: 'print', onload: 'this.media="all"' },
+				{ rel: 'stylesheet', href: 'https://s4.zstatic.net/ajax/libs/KaTeX/0.16.44/katex.min.css', media: 'print', onload: 'this.media="all"' },
 				// "InterVariable", "Inter", "InterDisplay"
-				{ rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css', media: 'print', onload: 'this.media="all"' },
+				{ rel: 'stylesheet', href: 'https://oss1.236668.xyz/fonts/inter/inter.css?_upd=inter.css&_upt=ce56c2851787252944', media: 'print', onload: 'this.media="all"' },
 				// "JetBrains Mono", 思源宋体 "Noto Serif SC"
 				{ rel: 'preconnect', href: 'https://fonts.gstatic.cn', crossorigin: '' },
 				{ rel: 'stylesheet', href: 'https://fonts.googleapis.cn/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Serif+SC:wght@200..900&display=swap', media: 'print', onload: 'this.media="all"' },

@@ -3,7 +3,7 @@ title: 将Responses格式模型接入Trae
 description: Trae对Responses API格式的支持很不积极，本文用CCSwitch本地路由解决这个问题
 date: 2026-07-25 20:45:14
 updated: 2026-07-25 20:45:14
-image: https://file.vacu.top/file/P4mHAQ3N.png
+image: https://dinoimg.236668.xyz/file/P4mHAQ3N.png
 permalink: /posts/dd1bd85
 categories: [技术]
 tags: [Trae, AI]
@@ -23,7 +23,7 @@ Responses API是OpenAI最新版本也是最推荐的API格式，其对工具调�
 
 ::link-banner
 ---
-banner: https://file.vacu.top/file/RDQ4i5Bv.png
+banner: https://dinoimg.236668.xyz/file/RDQ4i5Bv.png
 title: Hellocoder中转站
 description: AI印斯坦力推 | GPT系列低至0.06x Claude系列低至0.6x
 link: "https://hicoder.de"
@@ -34,23 +34,23 @@ link: "https://hicoder.de"
 
 新建Claude Code配置，因为只有它能将常见格式通过路由转换为A\ Messages格式，设置好请求地址和Key
 
-![](https://file.vacu.top/file/8v3TIvxq.png)
+![](https://dinoimg.236668.xyz/file/8v3TIvxq.png)
 
 展开高级选项，将API格式改为你要接入的供应商的格式
 
-![](https://file.vacu.top/file/WPS496pI.png)
+![](https://dinoimg.236668.xyz/file/WPS496pI.png)
 
 添加供应商，然后在主页中启用这个配置
 
 进入设置页面-路由，打开路由总开关，启用Claude路由，并复制服务地址
 
-![](https://file.vacu.top/file/PQaeBb36.png)
+![](https://dinoimg.236668.xyz/file/PQaeBb36.png)
 
 ## 在Trae中添加模型
 
 在服务商复制模型ID备用，不同服务商的ID可能不一样
 
-![](https://file.vacu.top/file/ZgLJfG8b.png)
+![](https://dinoimg.236668.xyz/file/ZgLJfG8b.png)
 
 打开Trae-设置-模型-添加模型-自定义配置
 
@@ -67,7 +67,7 @@ link: "https://hicoder.de"
 
 ::pic
 ---
-src: https://file.vacu.top/file/ilb9u8Jh.png
+src: https://dinoimg.236668.xyz/file/ilb9u8Jh.png
 zoom: true
 ---
 ::
@@ -76,7 +76,7 @@ zoom: true
 
 ::pic
 ---
-src: https://file.vacu.top/file/xTInmIts.png
+src: https://dinoimg.236668.xyz/file/xTInmIts.png
 zoom: true
 ---
 ::
@@ -89,7 +89,7 @@ zoom: true
 
 通过查看配置文件发现，Claude Code向CCS路由发送请求使用的Key是PROXY_MANAGED
 
-![](https://file.vacu.top/file/NUKMFx6N.png)
+![](https://dinoimg.236668.xyz/file/NUKMFx6N.png)
 
 ### 为什么模型请求失败？
 

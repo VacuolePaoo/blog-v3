@@ -1,0 +1,320 @@
+name: Deploy production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  VERCEL_CLI_VERSION: 59.1.4
+
+jobs:
+  deploy:
+    name: Build and deploy
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment: production
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+      AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      S3_ENDPOINT_URL: ${{ vars.S3_ENDPOINT_URL }}
+      S3_REGION: ${{ vars.S3_REGION }}
+      S3_BUCKET: ${{ vars.S3_BUCKET }}
+      CDN_BASE_URL: ${{ vars.CDN_BASE_URL }}
+      VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Validate deployment configuration
+        shell: bash
+        run: |
+          required=(
+            AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY
+            VERCEL_TOKEN
+            S3_ENDPOINT_URL
+            S3_REGION
+            S3_BUCKET
+            CDN_BASE_URL
+            VERCEL_ORG_ID
+            VERCEL_PROJECT_ID
+          )
+          missing=()
+
+          for name in "${required[@]}"; do
+            if [[ -z "${!name:-}" ]]; then
+              missing+=("$name")
+            fi
+          done
+
+          if (( ${#missing[@]} > 0 )); then
+            printf 'Missing production configuration: %s\n' "${missing[*]}" >&2
+            exit 1
+          fi
+
+      - name: Compute release information
+        id: release
+        shell: bash
+        run: |
+          release_date="$(TZ=Asia/Shanghai date +'%y%m%d')"
+          printf -v run_number '%08d' "$GITHUB_RUN_NUMBER"
+          printf -v run_attempt '%04d' "$GITHUB_RUN_ATTEMPT"
+          short_sha="${GITHUB_SHA:0:7}"
+          release_id="${release_date}-${run_number}-${run_attempt}-${short_sha}"
+          cdn_url="${CDN_BASE_URL%/}/${release_id}/"
+
+          {
+            echo "release_id=${release_id}"
+            echo "cdn_url=${cdn_url}"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Release: ${release_id}"
+          echo "CDN URL: ${cdn_url}"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.8.0
+          run_install: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Pull Vercel production settings
+        run: >-
+          pnpm dlx "vercel@${VERCEL_CLI_VERSION}" pull
+          --yes
+          --environment=production
+          --token="$VERCEL_TOKEN"
+
+      - name: Build Vercel output once
+        env:
+          NUXT_APP_CDN_URL: ${{ steps.release.outputs.cdn_url }}
+        run: >-
+          pnpm dlx "vercel@${VERCEL_CLI_VERSION}" build
+          --prod
+          --token="$VERCEL_TOKEN"
+
+      - name: Validate build output
+        shell: bash
+        run: |
+          test -f .vercel/output/config.json
+          test -d .vercel/output/static/_nuxt
+
+          asset_path="$(find .vercel/output/static/_nuxt -type f -print -quit)"
+          if [[ -z "$asset_path" ]]; then
+            echo 'No Nuxt build asset was generated' >&2
+            exit 1
+          fi
+
+      - name: Upload versioned static output to S3
+        env:
+          RELEASE_ID: ${{ steps.release.outputs.release_id }}
+        run: |
+          aws s3 sync \
+            .vercel/output/static/ \
+            "s3://${S3_BUCKET}/${RELEASE_ID}/" \
+            --endpoint-url "$S3_ENDPOINT_URL" \
+            --region "$S3_REGION" \
+            --cache-control 'public,max-age=31536000,immutable' \
+            --only-show-errors \
+            --no-progress
+
+      - name: Verify CDN asset
+        env:
+          CDN_URL: ${{ steps.release.outputs.cdn_url }}
+        shell: bash
+        run: |
+          asset_path="$(find .vercel/output/static/_nuxt -type f -print -quit)"
+          relative_path="${asset_path#.vercel/output/static/}"
+          asset_url="${CDN_URL}${relative_path}"
+
+          echo "Checking ${asset_url}"
+          curl \
+            --fail \
+            --silent \
+            --show-error \
+            --location \
+            --retry 12 \
+            --retry-delay 5 \
+            --retry-all-errors \
+            --output /dev/null \
+            "$asset_url"
+
+      - name: Deploy prebuilt Vercel candidate
+        id: candidate
+        env:
+          RELEASE_ID: ${{ steps.release.outputs.release_id }}
+        shell: bash
+        run: |
+          deployment_url="$(
+            pnpm dlx "vercel@${VERCEL_CLI_VERSION}" deploy \
+              --prebuilt \
+              --prod \
+              --skip-domain \
+              --yes \
+              --meta "githubCommitSha=${GITHUB_SHA}" \
+              --meta "releaseId=${RELEASE_ID}" \
+              --token="$VERCEL_TOKEN"
+          )"
+
+          if [[ ! "$deployment_url" =~ ^https:// ]]; then
+            echo "Unexpected Vercel deployment URL: ${deployment_url}" >&2
+            exit 1
+          fi
+
+          echo "deployment_url=${deployment_url}" >> "$GITHUB_OUTPUT"
+          echo "Candidate deployment: ${deployment_url}"
+
+      - name: Confirm commit is still current
+        id: latest
+        shell: bash
+        run: |
+          latest_sha="$(
+            git ls-remote origin "refs/heads/${GITHUB_REF_NAME}" \
+              | cut -f1
+          )"
+
+          if [[ "$latest_sha" == "$GITHUB_SHA" ]]; then
+            echo 'is_latest=true' >> "$GITHUB_OUTPUT"
+            echo 'This run still targets the latest commit.'
+          else
+            echo 'is_latest=false' >> "$GITHUB_OUTPUT"
+            echo "::warning::Skipping production promotion because ${GITHUB_SHA} is no longer the latest commit (${latest_sha})."
+          fi
+
+      - name: Promote candidate to production
+        if: steps.latest.outputs.is_latest == 'true'
+        run: >-
+          pnpm dlx "vercel@${VERCEL_CLI_VERSION}" promote
+          "${{ steps.candidate.outputs.deployment_url }}"
+          --yes
+          --timeout=5m
+          --token="$VERCEL_TOKEN"
+
+      - name: Mark promoted CDN release
+        if: steps.latest.outputs.is_latest == 'true'
+        env:
+          RELEASE_ID: ${{ steps.release.outputs.release_id }}
+          DEPLOYMENT_URL: ${{ steps.candidate.outputs.deployment_url }}
+        shell: bash
+        run: |
+          marker_path="${RUNNER_TEMP}/release.json"
+          promoted_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
+          jq -n \
+            --arg releaseId "$RELEASE_ID" \
+            --arg commitSha "$GITHUB_SHA" \
+            --arg deploymentUrl "$DEPLOYMENT_URL" \
+            --arg promotedAt "$promoted_at" \
+            '{
+              releaseId: $releaseId,
+              commitSha: $commitSha,
+              deploymentUrl: $deploymentUrl,
+              promotedAt: $promotedAt
+            }' > "$marker_path"
+
+          aws s3 cp \
+            "$marker_path" \
+            "s3://${S3_BUCKET}/${RELEASE_ID}/.release.json" \
+            --endpoint-url "$S3_ENDPOINT_URL" \
+            --region "$S3_REGION" \
+            --content-type 'application/json' \
+            --cache-control 'no-store' \
+            --only-show-errors
+
+      - name: Keep latest three promoted CDN releases
+        if: steps.latest.outputs.is_latest == 'true'
+        shell: bash
+        run: |
+          objects_json="$(
+            aws s3api list-objects-v2 \
+              --bucket "$S3_BUCKET" \
+              --endpoint-url "$S3_ENDPOINT_URL" \
+              --region "$S3_REGION" \
+              --output json
+          )"
+          prefixes_json="$(
+            aws s3api list-objects-v2 \
+              --bucket "$S3_BUCKET" \
+              --delimiter '/' \
+              --endpoint-url "$S3_ENDPOINT_URL" \
+              --region "$S3_REGION" \
+              --output json
+          )"
+
+          mapfile -t keep_releases < <(
+            jq -r '
+              [.Contents[]? | select(.Key | endswith("/.release.json"))]
+              | sort_by(.LastModified)
+              | reverse
+              | .[:3]
+              | .[].Key
+              | sub("/\\.release\\.json$"; "")
+            ' <<< "$objects_json"
+          )
+          mapfile -t all_releases < <(
+            jq -r '
+              .CommonPrefixes[]?.Prefix
+              | sub("/$"; "")
+              | select(test("^[0-9]{6}-[0-9]{8}-[0-9]{4}-[0-9a-f]{7}$"))
+            ' <<< "$prefixes_json"
+          )
+
+          declare -A keep=()
+          for release in "${keep_releases[@]}"; do
+            keep["$release"]=1
+            echo "Keeping promoted CDN release: ${release}"
+          done
+
+          for release in "${all_releases[@]}"; do
+            if [[ -n "${keep[$release]:-}" ]]; then
+              continue
+            fi
+
+            echo "Deleting old or abandoned CDN release: ${release}"
+            aws s3 rm \
+              "s3://${S3_BUCKET}/${release}/" \
+              --recursive \
+              --endpoint-url "$S3_ENDPOINT_URL" \
+              --region "$S3_REGION" \
+              --only-show-errors
+          done
+
+      - name: Write deployment summary
+        if: steps.latest.outputs.is_latest == 'true'
+        env:
+          RELEASE_ID: ${{ steps.release.outputs.release_id }}
+          CDN_URL: ${{ steps.release.outputs.cdn_url }}
+          DEPLOYMENT_URL: ${{ steps.candidate.outputs.deployment_url }}
+        run: |
+          {
+            echo '## Production deployment'
+            echo
+            echo "- Release: \`${RELEASE_ID}\`"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            echo "- CDN: ${CDN_URL}"
+            echo "- Vercel: ${DEPLOYMENT_URL}"
+          } >> "$GITHUB_STEP_SUMMARY"

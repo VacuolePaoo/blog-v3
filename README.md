@@ -2,7 +2,7 @@
 
 # 基于Zhilu-ClarityTheme开发
 
-## 上游 https://github.com/L33Z22L11/blog-v3
+## 上游 https://github.com/yunsen2025/blog-v3
 
 [![框架](https://img.shields.io/badge/框架-Nuxt-00DC82?logo=Nuxt.js)](https://nuxt.com/)
 [![CMS](https://img.shields.io/badge/CMS-Nuxt%20Content-00DC82?logo=Nuxt.js)](https://content.nuxt.com/)
