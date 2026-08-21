@@ -117,6 +117,7 @@ jobs:
 
       - name: Build Vercel output once
         env:
+          NITRO_PRESET: vercel
           NUXT_APP_CDN_URL: ${{ steps.release.outputs.cdn_url }}
         run: >-
           pnpm dlx "vercel@${VERCEL_CLI_VERSION}" build
