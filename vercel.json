@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nuxtjs",
+  "buildCommand": null,
+  "outputDirectory": null,
   "git": {
     "deploymentEnabled": false
   }
