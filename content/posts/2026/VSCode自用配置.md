@@ -3,7 +3,7 @@ title: VSCodium自用配置
 description: 分享我的VSCodium自用配置，包括外观设置、Git配置与开发体验优化，以及实用插件推荐。
 date: 2026-07-17 08:23:40
 updated: 2026-07-17 08:23:40
-image: https://file.vacu.top/file/DWR4byNt.png
+image: https://dinoimg.236668.xyz/file/DWR4byNt.png
 permalink: /posts/38ee48f
 categories: [技术]
 tags: [vscode, 自用]
@@ -34,7 +34,7 @@ tags: [vscode, 自用]
 
 ::pic
 ---
-src: https://file.vacu.top/file/1784249578707_image.png
+src: https://dinoimg.236668.xyz/file/1784249578707_image.png
 zoom: true
 ---
 ::
@@ -141,7 +141,7 @@ zoom: true
 
 ::pic
 ---
-src: https://file.vacu.top/file/1784301877723_image.png
+src: https://dinoimg.236668.xyz/file/1784301877723_image.png
 zoom: true
 ---
 ::
@@ -164,7 +164,7 @@ antfu开发，在行内显示iconify图标库的图标，支持输入时显示�
 
 ::pic
 ---
-src: https://file.vacu.top/file/mriMUzRO.png
+src: https://dinoimg.236668.xyz/file/mriMUzRO.png
 zoom: true
 ---
 ::

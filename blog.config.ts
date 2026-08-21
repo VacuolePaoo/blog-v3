@@ -7,7 +7,7 @@ const basicConfig = {
 	description: '液泡(Dinosaur)的个人博客，这里有技术分享与液泡对生活的思考，充满启发与思考。网站界面简洁美观，内容丰富实用，人气互动活跃，涵盖了编程、生活、学习等多个领域，为读者提供了卓越的阅读体验。',
 	author: {
 		name: 'VacuolePao',
-		avatar: 'https://file.vacu.top/file/1771316681372_avatar.png',
+		avatar: 'https://dinoimg.236668.xyz/file/1771316681372_avatar.png',
 		email: 'me@vacu.top',
 		homepage: 'https://www.vacu.top/',
 	},
@@ -16,7 +16,7 @@ const basicConfig = {
 		name: '署名-非商业性使用-相同方式共享 4.0 国际',
 		url: 'https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans',
 	},
-	favicon: 'favicon.ico',
+	favicon: 'https://oss2.236668.xyz/favicon.ico',
 	language: 'zh-CN',
 	timeEstablished: '2025-07-19',
 	timeZone: 'Asia/Shanghai',
@@ -74,7 +74,7 @@ const blogConfig = {
 		// 自己部署的 Umami 统计服务
 		{ 'src': 'https://umami.api.236668.xyz/script.js', 'data-website-id': '5a21135c-38ce-4a34-8636-b38d20634a8f', 'defer': true },
 		// Twikoo 评论系统
-		{ src: 'https://cdnjs.snrat.com/ajax/libs/twikoo/1.7.13/twikoo.min.js', defer: true },
+		{ src: 'https://s4.zstatic.net/ajax/libs/twikoo/1.7.13/twikoo.min.js', defer: true },
 	],
 
 	/** 全站统计配置 */
