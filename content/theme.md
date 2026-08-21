@@ -12,7 +12,7 @@ aside: [toc, meta-aside-github]
 ---
 title: L33Z22L11/blog-v3
 description: My blog, powered by Nuxt 4 & Nuxt Content v3. 纸鹿摸鱼处，分享技术与生活。
-link: https://github.com/yunsen2025/blog-v3
+link: https://github.com/L33Z22L11/blog-v3
 ---
 :::
 ::
@@ -80,7 +80,7 @@ link: https://blog.zhilu.site/2024/blog-using-nuxt
 
 - 灵感源自 [xaoxuu/hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar)，这是一个经过精致设计的简洁 Hexo 主题。
 - 借鉴了众多优秀设计，自己的一些设计也为 :tip[许多朋友的博客项目]{tip="真的有不少！"} 提供了灵感。
-- 项目被多人用作个人博客，详见 [`README.md`](https://github.com/yunsen2025/blog-v3)。
+- 项目被多人用作个人博客，详见 [`README.md`](https://github.com/L33Z22L11/blog-v3)。
 
 ### 技术架构
 
@@ -112,4 +112,4 @@ link: https://blog.zhilu.site/2024/blog-using-nuxt
   - **代码压缩**：Oxc Minify
 ::
 
-- 更多技术依赖可参考 [`pnpm-workspace.yaml`](https://github.com/yunsen2025/blog-v3/blob/main/pnpm-workspace.yaml)。
+- 更多技术依赖可参考 [`pnpm-workspace.yaml`](https://github.com/L33Z22L11/blog-v3/blob/main/pnpm-workspace.yaml)。
